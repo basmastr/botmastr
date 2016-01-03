@@ -1,12 +1,18 @@
-import bwapi.*;
-import bwta.BWTA;
-import bwta.BaseLocation;
+package java.botmastr;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import bwapi.*;
+import bwta.BWTA;
+import bwta.BaseLocation;
+
+/**
+ * Main class.
+ * @author Tomas Tomek
+ */
 public class TestBot1 extends DefaultBWListener {
 
     private Mirror mirror = new Mirror();

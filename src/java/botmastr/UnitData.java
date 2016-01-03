@@ -1,8 +1,10 @@
+package java.botmastr;
+
 import bwapi.Unit;
 
 /**
- * Created by Tomas Tomek on 21.12.2015.
- * tomas.tomek333@gmail.com
+ * Represents a single BWAPI unit but adds aditional info. Used for mobile units only.
+ * @author Tomas Tomek tomas.tomek333@gmail.com
  */
 public class UnitData {
     protected Unit unit;
