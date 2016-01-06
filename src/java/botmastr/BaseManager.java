@@ -8,7 +8,7 @@ public final class BaseManager extends ABaseManager {
     /**
      * Singleton instance.
      */
-    public static final BaseManager INSTANCE = new BaseManager();
+    private static final BaseManager INSTANCE = new BaseManager();
 
     /**
      * Private because this is a singleton.
