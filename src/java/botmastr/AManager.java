@@ -6,7 +6,7 @@ import bwapi.Mirror;
  * Abstract base class for all managers.
  * @author Tomas Tomek tomas.tomek333@gmail.com
  */
-public abstract class ABaseManager {
+public abstract class AManager {
 
     /**
      * Game state

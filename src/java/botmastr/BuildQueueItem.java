@@ -10,7 +10,7 @@ public class BuildQueueItem implements Comparable<BuildQueueItem> {
     /**
      * Priority of this item in the quere (higher means it will be built sooner).
      */
-    protected Integer priority;
+    protected EPriority priority;
     /**
      * What bulding should be built.
      */
@@ -25,7 +25,7 @@ public class BuildQueueItem implements Comparable<BuildQueueItem> {
      * @param priority priority of the item in the build queue
      * @param building what building to build
      */
-    public BuildQueueItem(Integer priority, UnitType building) {
+    public BuildQueueItem(EPriority priority, UnitType building) {
         this.priority = priority;
         this.building = building;
         this.base = null;
@@ -37,7 +37,7 @@ public class BuildQueueItem implements Comparable<BuildQueueItem> {
      * @param building what building to build
      * @param base where to build
      */
-    public BuildQueueItem(Integer priority, UnitType building, Base base) {
+    public BuildQueueItem(EPriority priority, UnitType building, Base base) {
         this.priority = priority;
         this.building = building;
         this.base = base;
@@ -48,7 +48,7 @@ public class BuildQueueItem implements Comparable<BuildQueueItem> {
         return this.priority.compareTo(o.getPriority());
     }
 
-    public Integer getPriority() {
+    public EPriority getPriority() {
         return this.priority;
     }
 

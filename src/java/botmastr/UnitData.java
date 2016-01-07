@@ -2,35 +2,33 @@ package java.botmastr;
 
 import bwapi.Unit;
 
+import java.util.PriorityQueue;
+
 /**
  * Represents a single BWAPI unit but adds aditional info. Used for mobile units only.
  * @author Tomas Tomek tomas.tomek333@gmail.com
  */
 public class UnitData {
+    /**
+     * BWAPI unit tied to this object.
+     */
     protected Unit unit;
-    protected byte state;
-    public static final byte STATE_AVAILABLE = 0;
-    public static final byte STATE_BUSY = 1;
 
-    public UnitData(Unit unit, byte state) {
-        this.unit = unit;
-        this.state = state;
-    }
+    /**
+     * Plan containing current objectives of this unit.
+     */
+    protected PriorityQueue<UnitObjective> plan;
 
     public UnitData(Unit unit) {
         this.unit = unit;
-        this.state = STATE_AVAILABLE;
+        this.plan = new PriorityQueue<UnitObjective>();
     }
 
     public Unit getUnit() {
-        return unit;
+        return this.unit;
     }
 
-    public byte getState() {
-        return state;
-    }
-
-    public void setState(byte state) {
-        this.state = state;
+    public PriorityQueue<UnitObjective> getPlan() {
+        return this.plan;
     }
 }

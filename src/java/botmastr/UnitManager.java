@@ -9,7 +9,7 @@ import bwapi.Mirror;
  * Manager for mobile units.
  * @author Tomas Tomek tomas.tomek333@gmail.com
  */
-public final class UnitManager extends ABaseManager {
+public final class UnitManager extends AManager {
 
     /**
      * Singleton intance.
