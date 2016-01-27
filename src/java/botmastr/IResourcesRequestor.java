@@ -1,4 +1,4 @@
-package java.botmastr;
+package botmastr;
 
 /**
  * Needs to be implemented by all classes which want to ask for resources (minerals and/or gas) allocation.

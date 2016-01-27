@@ -1,4 +1,4 @@
-package java.botmastr;
+package botmastr;
 
 /**
  * Created by Tomas Tomek on 21.12.2015.

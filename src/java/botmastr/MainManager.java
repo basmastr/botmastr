@@ -1,4 +1,4 @@
-package java.botmastr;
+package botmastr;
 
 /**
  * Makes top level decisions about what to do.

@@ -1,4 +1,4 @@
-package java.botmastr;
+package botmastr;
 
 /**
  * Implements single task for a unit.

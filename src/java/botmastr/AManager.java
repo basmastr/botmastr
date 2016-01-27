@@ -1,4 +1,4 @@
-package java.botmastr;
+package botmastr;
 
 import bwapi.Mirror;
 
@@ -20,4 +20,5 @@ public abstract class AManager {
     public void init(Mirror bwapi) {
         this.bwapi = bwapi;
     }
+
 }

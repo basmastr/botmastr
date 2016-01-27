@@ -1,13 +1,10 @@
-package java.botmastr;
-
-import bwapi.UnitType;
-import bwapi.UpgradeType;
+package botmastr;
 
 /**
  * Represents a single request for resources.
  * @author Tomas Tomek tomas.tomek333@gmail.com
  */
-public class ResourcesRequest  implements Comparable<ResourcesRequest>{
+public class ResourcesRequest  implements Comparable<ResourcesRequest> {
     /**
      * Amount of minerals requested.
      */
@@ -27,33 +24,38 @@ public class ResourcesRequest  implements Comparable<ResourcesRequest>{
      * Reference to object which initiated this request.
      */
     protected IResourcesRequestor requestor;
-
+    //Probably rework rResourcesRequest to BuildingQueueItem, UpgradeQueueItem, TrainQueueItem implements IResourceRequest
+//TODO UnitResourcesRequest + UpgradeResourcesRequest + AResourcesRequest or something else (prototype? or subclass UnitType and UpgradeType and make them implement an interface)
     /**
      * What are the resources for.
      */
-    protected UnitType|UpgradeType reason;
+    protected AProductionQueueItem reason;
 
     /**
      * Construtor for requests with known priority.
      * @param minerals Amount of minerals requested.
      * @param gas Amount of gas requested.
      * @param priority Priority of the request.
+     * @param reason Reason for this request. Can be either UnitType or UpgradeType.
      */
-    public ResourcesRequest(Integer minerals, Integer gas, EPriority priority) {
+    public ResourcesRequest(Integer minerals, Integer gas, EPriority priority, AProductionQueueItem reason) {
         this.minerals = minerals;
         this.gas = gas;
         this.priority = priority;
+        this.reason = reason;
     }
 
     /**
      * Construtor for requests with unknown priority. Priority will be set to medium.
      * @param minerals Amount of minerals requested.
      * @param gas Amount of gas requested.
+     * @param reason Reason for this request. Can be either UnitType or UpgradeType.
      */
-    public ResourcesRequest(Integer minerals, Integer gas) {
+    public ResourcesRequest(Integer minerals, Integer gas, AProductionQueueItem reason) {
         this.minerals = minerals;
         this.gas = gas;
         this.priority = EPriority.MEDIUM;
+        this.reason = reason;
     }
 
     /**
@@ -92,6 +94,10 @@ public class ResourcesRequest  implements Comparable<ResourcesRequest>{
 
     public IResourcesRequestor getRequestor() {
         return this.requestor;
+    }
+
+    public AProductionQueueItem getReason() {
+        return this.reason;
     }
 
     @Override

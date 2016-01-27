@@ -1,4 +1,4 @@
-package java.botmastr;
+package botmastr;
 
 /**
  * Interface for all managers.
