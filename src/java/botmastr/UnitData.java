@@ -1,8 +1,8 @@
 package botmastr;
 
-import bwapi.Unit;
-
 import java.util.PriorityQueue;
+
+import bwapi.Unit;
 
 /**
  * Represents a single BWAPI unit but adds aditional info.
@@ -17,18 +17,30 @@ public class UnitData {
     /**
      * Plan containing current objectives of this unit.
      */
-    protected PriorityQueue<UnitObjective> plan;
+    protected PriorityQueue<IUnitObjective> plan;
 
     public UnitData(Unit unit) {
         this.unit = unit;
-        this.plan = new PriorityQueue<UnitObjective>();
+        this.plan = new PriorityQueue<IUnitObjective>();
     }
 
     public Unit getUnit() {
         return this.unit;
     }
 
-    public PriorityQueue<UnitObjective> getPlan() {
+    public PriorityQueue<IUnitObjective> getPlan() {
         return this.plan;
+    }
+
+    /**
+     * Adds an objective to this units plan.
+     * @param newObjective New objective.
+     */
+    public void addObjective(IUnitObjective newObjective) {
+        final IUnitObjective oldObjective = this.plan.peek();
+        this.plan.add(newObjective);
+        if (!oldObjective.equals(this.plan.peek())) {
+            newObjective.execute(this);
+        }
     }
 }

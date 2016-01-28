@@ -21,8 +21,15 @@ public final class UnitManager extends AManager implements IManager {
      * TODO put into Common?
      * Contains all UnitTypes that are mineral fields.
      */
-    public static final List<UnitType> MINERAL_TYPES = Arrays.asList(
+    public static final List<UnitType> TYPES_MINERALS = Arrays.asList(
             UnitType.Resource_Mineral_Field, UnitType.Resource_Mineral_Field_Type_2, UnitType.Resource_Mineral_Field_Type_3);
+
+    /**
+     * TODO put into Common?
+     * Contains all UnitTypes that are workers.
+     */
+    public static final List<UnitType> TYPES_WORKERS = Arrays.asList(
+            UnitType.Terran_SCV, UnitType.Protoss_Probe, UnitType.Zerg_Drone);
 
     /**
      * Singleton intance.
@@ -65,6 +72,22 @@ public final class UnitManager extends AManager implements IManager {
         if (isMainBuilding(unitData.getUnit()) && isMine(unitData.getUnit())) {
             new MyBase(unitData);
         }
+    }
+
+    /**
+     *
+     * @return
+     */
+    public List<UnitData> getUnitsByType(UnitType type) {
+        return this.units.values().stream().filter(u -> u.getUnit().getType().equals(type)).collect(Collectors.toList());
+    }
+
+    /**
+     *
+     * @return
+     */
+    public List<UnitData> getUnitsByType(List<UnitType> types) {
+        return this.units.values().stream().filter(u -> types.contains(u.getUnit().getType())).collect(Collectors.toList());
     }
 
 

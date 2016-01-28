@@ -47,7 +47,7 @@ public final class BuildingManager extends AManager implements IResourcesRequest
     public void requestAccepted(ResourcesRequest request) {
         //find place to build
         //find worker to build it
-        //create UnitObjective
+        //create UnitObjectiveMineMinerals
    }
 
     @Override

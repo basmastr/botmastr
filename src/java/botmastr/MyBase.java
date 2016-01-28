@@ -32,8 +32,6 @@ public class MyBase extends ABase {
      */
     private List<Unit> geysers;
 
-
-
     /**
      *
      * @param main
@@ -42,8 +40,9 @@ public class MyBase extends ABase {
     public MyBase(UnitData main) {
         super(main);
         this.workers = new ArrayList<>();
-        this.mineralPatches = UnitManager.getInstance().getUnitsInRadius(main.getUnit().getPosition(), RESOURCES_THRESHOLD, UnitManager.MINERAL_TYPES);
+        this.mineralPatches = UnitManager.getInstance().getUnitsInRadius(main.getUnit().getPosition(), RESOURCES_THRESHOLD, UnitManager.TYPES_MINERALS);
         this.geysers = UnitManager.getInstance().getUnitsInRadius(main.getUnit().getPosition(), RESOURCES_THRESHOLD, UnitType.Resource_Vespene_Geyser);
+        BaseManager.getInstance().addBase(this);
     }
 
     /**
@@ -52,5 +51,7 @@ public class MyBase extends ABase {
      */
     public void assignWorker(UnitData worker) {
         this.workers.add(worker);
+        // TODO: 28.1.2016 temporary
+        worker.addObjective(new UnitObjectiveMineMinerals(this.mineralPatches.get(0)));
     }
 }
