@@ -17,18 +17,17 @@ public class UnitData {
     /**
      * Plan containing current objectives of this unit.
      */
-    protected PriorityQueue<IUnitObjective> plan;
+    protected PriorityQueue<AUnitObjective> plan = new PriorityQueue<>();
 
     public UnitData(Unit unit) {
         this.unit = unit;
-        this.plan = new PriorityQueue<IUnitObjective>();
     }
 
     public Unit getUnit() {
         return this.unit;
     }
 
-    public PriorityQueue<IUnitObjective> getPlan() {
+    public PriorityQueue<AUnitObjective> getPlan() {
         return this.plan;
     }
 
@@ -36,10 +35,11 @@ public class UnitData {
      * Adds an objective to this units plan.
      * @param newObjective New objective.
      */
-    public void addObjective(IUnitObjective newObjective) {
-        final IUnitObjective oldObjective = this.plan.peek();
+    public void addObjective(AUnitObjective newObjective) {
+        final AUnitObjective oldObjective = this.plan.peek();
         this.plan.add(newObjective);
-        if (!oldObjective.equals(this.plan.peek())) {
+        if (oldObjective == null || !oldObjective.equals(this.plan.peek())) {
+            //top priority objective has changed, execute it instead of continueing in the last one
             newObjective.execute(this);
         }
     }

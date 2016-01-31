@@ -1,36 +1,16 @@
 package botmastr;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-import bwapi.Mirror;
-import bwapi.Position;
-import bwapi.Unit;
-import bwapi.UnitType;
+import bwapi.*;
 
 /**
  * General unit manager.
  * @author Tomas Tomek tomas.tomek333@gmail.com
  */
 public final class UnitManager extends AManager implements IManager {
-
-    /**
-     * TODO put into Common?
-     * Contains all UnitTypes that are mineral fields.
-     */
-    public static final List<UnitType> TYPES_MINERALS = Arrays.asList(
-            UnitType.Resource_Mineral_Field, UnitType.Resource_Mineral_Field_Type_2, UnitType.Resource_Mineral_Field_Type_3);
-
-    /**
-     * TODO put into Common?
-     * Contains all UnitTypes that are workers.
-     */
-    public static final List<UnitType> TYPES_WORKERS = Arrays.asList(
-            UnitType.Terran_SCV, UnitType.Protoss_Probe, UnitType.Zerg_Drone);
-
     /**
      * Singleton intance.
      */
@@ -39,16 +19,18 @@ public final class UnitManager extends AManager implements IManager {
     /**
      * Unit list
      */
-    private Map<Integer, UnitData> units;
+    private Map<Integer, UnitData> units = new HashMap<>();
 
     /**
      * Private constructor cos this is a singleton.
      */
-    private UnitManager() { }
+    private UnitManager() {
+    }
 
     public static UnitManager getInstance() {
         return INSTANCE;
     }
+
 
 
     /**
@@ -72,6 +54,13 @@ public final class UnitManager extends AManager implements IManager {
         if (isMainBuilding(unitData.getUnit()) && isMine(unitData.getUnit())) {
             new MyBase(unitData);
         }
+        else if (unit.getType() == UnitType.Resource_Vespene_Geyser){
+            BaseManager.getInstance().addGeyser(unit);
+        }
+
+        else if (unit.getType().isMineralField()){
+            BaseManager.getInstance().addMineralPatch(unit);
+        }
     }
 
     /**
@@ -90,7 +79,6 @@ public final class UnitManager extends AManager implements IManager {
         return this.units.values().stream().filter(u -> types.contains(u.getUnit().getType())).collect(Collectors.toList());
     }
 
-
     /**
      *
      * @param middle
@@ -99,7 +87,7 @@ public final class UnitManager extends AManager implements IManager {
      * @return
      */
     public List<Unit> getUnitsInRadius(Position middle, Integer radius, UnitType type) {
-        return bwapi.getGame().getUnitsInRadius(middle, radius).stream().filter(u -> u.getType().equals(type)).collect(Collectors.toList());
+        return this.bwapi.getGame().getUnitsInRadius(middle, radius).stream().filter(u -> u.getType() == type).collect(Collectors.toList());
     }
 
     /**
@@ -142,7 +130,7 @@ public final class UnitManager extends AManager implements IManager {
 
     @Override
     public void tic() {
-        checkUnassignedUnits();
+//        checkUnassignedUnits();
     }
 
     /**
@@ -151,6 +139,7 @@ public final class UnitManager extends AManager implements IManager {
     private void checkUnassignedUnits() {
         for (Unit unit : this.bwapi.getGame().getAllUnits()) {
             if (isMine(unit) && !this.units.containsKey(unit.getID())) {
+//                System.out.println("unit.getType() = " + unit.getType().toString());
                 addUnit(unit);
             }
         }

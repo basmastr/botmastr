@@ -1,16 +1,15 @@
 package botmastr;
 
-import bwapi.UnitType;
+import bwapi.Unit;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
  * Manages owned bases.
  * @author Tomas Tomek tomas.tomek333@gmail.com
  */
-public final class BaseManager implements IManager{
+public final class BaseManager extends AManager implements IManager{
     /**
      * Singleton instance.
      */
@@ -19,7 +18,7 @@ public final class BaseManager implements IManager{
     /**
      * List of owned bases.
      */
-    private List<MyBase> bases;
+    private List<MyBase> bases = new ArrayList<>();
 
     /**
      * Private constructor because this is a singleton.
@@ -41,7 +40,45 @@ public final class BaseManager implements IManager{
 
     @Override
     public void tic() {
-        this.reassignWorkers();
+        final int updateInterval = 40;
+        if (this.bwapi.getGame().getFrameCount() % updateInterval == 0) { //only update at a certain interval
+            this.releaseWorkers();
+            this.reassignWorkers();
+        }
+
+    }
+
+    /**
+     * Add vespene geyser unit to a base if there is one in the necessary threshold
+     * @see MyBase.RESOURCES_THRESHOLD
+     * @param unit
+     */
+    public void addGeyser(Unit unit) {
+        for (MyBase b: this.bases) {
+            if (b.main.getUnit().getDistance(unit) <= MyBase.RESOURCES_THRESHOLD) {
+                b.addGeyser(unit);
+            }
+        }
+    }
+
+    /**
+     * Add vespene mineral unit to a base if there is one in the necessary threshold
+     * @see MyBase.RESOURCES_THRESHOLD
+     * @param unit
+     */
+    public void addMineralPatch(Unit unit) {
+        for (MyBase b: this.bases) {
+            if (b.main.getUnit().getDistance(unit) <= MyBase.RESOURCES_THRESHOLD) {
+                b.addMineralPatch(unit);
+            }
+        }
+    }
+
+    private void releaseWorkers() {
+        if (this.bases.size() > 0) {
+            final MyBase base = this.bases.get(0);
+            base.getWorkers().clear();
+        }
     }
 
 
@@ -49,7 +86,8 @@ public final class BaseManager implements IManager{
         // TODO: 28.1.2016 temporary
         if (this.bases.size() > 0) {
             final MyBase base = this.bases.get(0);
-            for (UnitData worker : UnitManager.getInstance().getUnitsByType(UnitManager.TYPES_WORKERS)) {
+//            System.out.println("UnitManager.getInstance().getUnitsByType(UnitManager.TYPES_WORKERS) = " + UnitManager.getInstance().getUnitsByType(Common.TYPES_WORKERS).size());
+            for (UnitData worker : UnitManager.getInstance().getUnitsByType(Common.TYPES_WORKERS)) {
                 base.assignWorker(worker);
             }
         }

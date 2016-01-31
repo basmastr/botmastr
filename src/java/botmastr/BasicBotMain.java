@@ -1,15 +1,14 @@
 package botmastr;
 
-import bwapi.DefaultBWListener;
-import bwapi.Mirror;
-import bwapi.Unit;
-import bwapi.UnitType;
+import bwapi.*;
+
+import java.util.Arrays;
 
 /**
  * @author Tomas Tomek tomas.tomek333@gmail.com
  */
-public class BasicBotMain extends DefaultBWListener {
-    private static final BasicBotMain INSTANCE = new BasicBotMain();
+public final class BasicBotMain extends DefaultBWListener {
+    private static BasicBotMain INSTANCE;
     private Mirror mirror;
 
     private BasicBotMain() {
@@ -17,8 +16,30 @@ public class BasicBotMain extends DefaultBWListener {
         this.mirror.getModule().setEventListener(this);
         this.mirror.startGame();
     }
+
+    public static void main(String[] args) {
+        INSTANCE = new BasicBotMain();
+    }
+
     @Override
-    public void onUnitCreate(Unit unit) {
+    public void onStart() {
+        Common.getInstance().init(this.mirror);
+        UnitManager.getInstance().init(this.mirror);
+        BaseManager.getInstance().init(this.mirror);
+    }
+
+    @Override
+    public void onFrame() {
+        this.mirror.getGame().drawBoxMap(800, 100, 1300, 450, Color.Purple);
+        this.mirror.getGame().drawCircleMap(1984, 3792, 350, Color.Purple);
+
+        UnitManager.getInstance().tic();
+        BaseManager.getInstance().tic();
+    }
+
+    @Override
+    public void onUnitComplete(Unit unit) {
+        System.out.println("unit complete unit.getType() = " + unit.getType());
         UnitManager.getInstance().addUnit(unit);
     }
 

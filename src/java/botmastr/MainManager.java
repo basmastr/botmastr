@@ -13,8 +13,7 @@ public final class MainManager extends AManager implements IManager {
     /**
      * Private because this is a singleton.
      */
-    private MainManager() {
-    }
+    private MainManager() {}
 
     public static MainManager getInstance() {
         return INSTANCE;

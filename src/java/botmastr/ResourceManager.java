@@ -15,7 +15,8 @@ public final class ResourceManager extends AManager implements IManager{
     /**
      * Stores all awaiting requests for resources.
      */
-    protected PriorityQueue<ResourcesRequest> requests;
+    private PriorityQueue<ResourcesRequest> requests;
+
     /**
      * Private constructor because this is a singleton.
      */
