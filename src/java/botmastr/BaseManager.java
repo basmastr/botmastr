@@ -1,9 +1,11 @@
 package botmastr;
 
+import bwapi.Color;
 import bwapi.Unit;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Manages owned bases.
@@ -41,11 +43,34 @@ public final class BaseManager extends AManager implements IManager{
     @Override
     public void tic() {
         final int updateInterval = 40;
-        if (this.bwapi.getGame().getFrameCount() % updateInterval == 0) { //only update at a certain interval
-            this.releaseWorkers();
-            this.reassignWorkers();
-        }
+        if (this.bases.size() > 0) {
+            final MyBase base = this.bases.get(0);
+            base.refreshResources();
+            base.getWorkers().clear();
 
+            for (UnitData worker : UnitManager.getInstance().getUnitsByType(Common.TYPES_WORKERS)) {
+                base.assignWorker(worker);
+            }
+
+            base.debug();
+        }
+//        if (this.bwapi.getGame().getFrameCount() % updateInterval == 0) { //only update at a certain interval
+//            // TODO: 15.2.2016 go through bases and call base's tic method
+//            this.releaseWorkers();
+//            this.reassignWorkers();
+//        }
+    }
+
+
+    private void resourcesDebug() {
+        for (MyBase b :
+                this.bases) {
+            for (Unit u :
+                    b.getMineralPatches()) {
+                this.bwapi.getGame().drawDotMap(u.getX(), u.getY(), Color.Red);
+                System.out.println("u.getID() = " + u.getID());
+            }
+        }
     }
 
     /**
@@ -86,6 +111,7 @@ public final class BaseManager extends AManager implements IManager{
         // TODO: 28.1.2016 temporary
         if (this.bases.size() > 0) {
             final MyBase base = this.bases.get(0);
+            base.refreshResources();
 //            System.out.println("UnitManager.getInstance().getUnitsByType(UnitManager.TYPES_WORKERS) = " + UnitManager.getInstance().getUnitsByType(Common.TYPES_WORKERS).size());
             for (UnitData worker : UnitManager.getInstance().getUnitsByType(Common.TYPES_WORKERS)) {
                 base.assignWorker(worker);

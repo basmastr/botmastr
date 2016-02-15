@@ -1,6 +1,7 @@
 package botmastr;
 
 import bwapi.*;
+import bwta.BWTA;
 
 import java.util.Arrays;
 
@@ -23,6 +24,8 @@ public final class BasicBotMain extends DefaultBWListener {
 
     @Override
     public void onStart() {
+        BWTA.readMap();
+        BWTA.analyze();
         Common.getInstance().init(this.mirror);
         UnitManager.getInstance().init(this.mirror);
         BaseManager.getInstance().init(this.mirror);
@@ -30,8 +33,8 @@ public final class BasicBotMain extends DefaultBWListener {
 
     @Override
     public void onFrame() {
-        this.mirror.getGame().drawBoxMap(800, 100, 1300, 450, Color.Purple);
-        this.mirror.getGame().drawCircleMap(1984, 3792, 350, Color.Purple);
+//        this.mirror.getGame().drawBoxMap(800, 100, 1300, 450, Color.Purple);
+//        this.mirror.getGame().drawCircleMap(1984, 3792, 350, Color.Purple);
 
         UnitManager.getInstance().tic();
         BaseManager.getInstance().tic();

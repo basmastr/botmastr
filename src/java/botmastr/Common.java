@@ -1,5 +1,6 @@
 package botmastr;
 
+import bwapi.Game;
 import bwapi.Mirror;
 import bwapi.UnitType;
 
@@ -54,4 +55,12 @@ public class Common {
      * Singleton intance.
      */
     private static final Common INSTANCE = new Common();
+
+    public Mirror getBwapi() {
+        return this.bwapi;
+    }
+
+    public Game getGame() {
+        return this.bwapi.getGame();
+    }
 }

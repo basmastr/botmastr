@@ -54,13 +54,13 @@ public final class UnitManager extends AManager implements IManager {
         if (isMainBuilding(unitData.getUnit()) && isMine(unitData.getUnit())) {
             new MyBase(unitData);
         }
-        else if (unit.getType() == UnitType.Resource_Vespene_Geyser){
-            BaseManager.getInstance().addGeyser(unit);
-        }
-
-        else if (unit.getType().isMineralField()){
-            BaseManager.getInstance().addMineralPatch(unit);
-        }
+//        else if (unit.getType() == UnitType.Resource_Vespene_Geyser){
+//            BaseManager.getInstance().addGeyser(unit);
+//        }
+//
+//        else if (unit.getType().isMineralField()){
+//            BaseManager.getInstance().addMineralPatch(unit);
+//        }
     }
 
     /**

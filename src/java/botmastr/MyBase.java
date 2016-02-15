@@ -1,7 +1,9 @@
 package botmastr;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
+import bwapi.Color;
 import bwapi.Unit;
 import bwapi.UnitType;
 
@@ -18,17 +20,17 @@ public class MyBase extends ABase {
     /**
      * Workers attached to this base.
      */
-    private List<UnitData> workers = new ArrayList<>();
+    private Set<UnitData> workers = new HashSet<>();
 
     /**
      *
      */
-    private List<Unit> mineralPatches = new ArrayList<>();
+    private Set<Unit> mineralPatches = new HashSet<>();
 
     /**
      *
      */
-    private List<Unit> geysers = new ArrayList<>();
+    private Set<Unit> geysers = new HashSet<>();
 
     /**
      *
@@ -37,9 +39,9 @@ public class MyBase extends ABase {
      */
     public MyBase(UnitData main) {
         super(main);
-//        System.out.println("main.getUnit().getUnitsInRadius(350) = " + main.getUnit().getUnitsInRadius(350));
-//        this.mineralPatches = UnitManager.getInstance().getUnitsInRadius(main.getUnit().getPosition(), RESOURCES_THRESHOLD, Common.TYPES_MINERALS);
-        this.mineralPatches.addAll(UnitManager.getInstance().getUnitsInRadius(main.getUnit().getPosition(), RESOURCES_THRESHOLD, Common.TYPES_MINERALS));
+        final Collection<Unit> mins = main.getUnit().getUnitsInRadius(RESOURCES_THRESHOLD).stream().filter(u -> Common.TYPES_MINERALS.contains(u.getType())).collect(Collectors.toList());
+        this.mineralPatches.addAll(mins);
+//        this.mineralPatches.addAll(UnitManager.getInstance().getUnitsInRadius(main.getUnit().getPosition(), RESOURCES_THRESHOLD, Common.TYPES_MINERALS));
         this.geysers.addAll(UnitManager.getInstance().getUnitsInRadius(main.getUnit().getPosition(), RESOURCES_THRESHOLD, UnitType.Resource_Vespene_Geyser));
 //        System.out.println("BaseCreation geysers found = " + UnitManager.getInstance().getUnitsInRadius(main.getUnit().getPosition(), RESOURCES_THRESHOLD, UnitType.Resource_Vespene_Geyser));
 //        System.out.println("BaseCreation geysers total = " + this.geysers.size());
@@ -47,21 +49,43 @@ public class MyBase extends ABase {
     }
 
     /**
+     * Prints debugging information for this base.
+     */
+    public void debug() {
+        // TODO: 15.2.2016 put this.main.getUnit().getX(), this.main.getUnit().getY() into UnitData?
+        //resources treshhold
+        Common.getInstance().getGame().drawCircleMap(this.main.getUnit().getX(), this.main.getUnit().getY(), RESOURCES_THRESHOLD, Color.Purple);
+        //resources
+        Common.getInstance().getGame().drawTextMap(this.main.getUnit().getX(), this.main.getUnit().getY(), Integer.toString(this.mineralPatches.size()));
+        Common.getInstance().getGame().drawTextMap(this.main.getUnit().getX(), this.main.getUnit().getY()+15, Integer.toString(this.geysers.size()));
+        Common.getInstance().getGame().drawTextMap(this.main.getUnit().getX(), this.main.getUnit().getY()+30, Integer.toString(this.workers.size()));
+
+        for (Unit u :
+                this.mineralPatches) {
+            Common.getInstance().getGame().drawCircleMap(u.getX(), u.getY(), 30, Color.Red);
+        }
+
+        for (Unit u :
+                this.geysers) {
+            Common.getInstance().getGame().drawCircleMap(u.getX(), u.getY(), 30, Color.Red);
+        }
+    }
+    /**
      * Adds a worker under management of this base.
      * @param worker Worker to be added.
      */
     public void assignWorker(UnitData worker) {
         this.workers.add(worker);
-        System.out.println("this.workers.size() = " + this.workers.size());
-        System.out.println("this.mineralPatches.size() = " + this.mineralPatches.size());
-        System.out.println("this.geysers.size() = " + this.geysers.size());
+//        System.out.println("this.workers.size() = " + this.workers.size());
+//        System.out.println("this.mineralPatches.size() = " + this.mineralPatches.size());
+//        System.out.println("this.geysers.size() = " + this.geysers.size());
         // TODO: 28.1.2016 temporary
         if (!this.mineralPatches.isEmpty()){
-            worker.addObjective(new UnitObjectiveMineMinerals(this.mineralPatches.get(0), EPriority.MEDIUM));
+            worker.addObjective(new UnitObjectiveMineMinerals(this.mineralPatches.iterator().next(), EPriority.MEDIUM));
         }
     }
 
-    public List<UnitData> getWorkers() {
+    public Set<UnitData> getWorkers() {
         return this.workers;
     }
 
@@ -80,4 +104,24 @@ public class MyBase extends ABase {
     public void addMineralPatch(Unit mineral) {
         this.mineralPatches.add(mineral);
     }
+
+    /**
+     * Reloads base's mineral patches and geysers.
+     */
+    public void refreshResources() {
+        this.geysers.clear();
+        this.mineralPatches.clear();
+        this.geysers.addAll(UnitManager.getInstance().getUnitsInRadius(this.main.getUnit().getPosition(), RESOURCES_THRESHOLD, UnitType.Resource_Vespene_Geyser));
+        this.mineralPatches.addAll(UnitManager.getInstance().getUnitsInRadius(this.main.getUnit().getPosition(), RESOURCES_THRESHOLD,  Common.TYPES_MINERALS));
+    }
+
+
+    public Set<Unit> getGeysers() {
+        return this.geysers;
+    }
+
+    public Set<Unit> getMineralPatches() {
+        return this.mineralPatches;
+    }
+
 }
