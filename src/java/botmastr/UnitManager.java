@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import bwapi.*;
 
+import static botmastr.AUnitObjective.*;
+
 /**
  * General unit manager.
  * @author Tomas Tomek tomas.tomek333@gmail.com
@@ -20,6 +22,16 @@ public final class UnitManager extends AManager implements IManager {
      * Unit list
      */
     private Map<Integer, UnitData> units = new HashMap<>();
+
+    /**
+     * List of all currently active objectives.
+     */
+    private List<AUnitObjective> activeObjectives = new ArrayList<>();
+
+    /**
+     * List of objectives that are finished but are still considered active.
+     */
+    private List<AUnitObjective> finishedActiveObjectives = new ArrayList<>();
 
     /**
      * Private constructor cos this is a singleton.
@@ -61,6 +73,33 @@ public final class UnitManager extends AManager implements IManager {
 //        else if (unit.getType().isMineralField()){
 //            BaseManager.getInstance().addMineralPatch(unit);
 //        }
+    }
+
+    /**
+     * Adds an objective to currently active objectives.
+     * @param objective Objective to be added.
+     */
+    public void addActiveObjective(AUnitObjective objective) {
+        this.activeObjectives.add(objective);
+    }
+
+
+    /**
+     * Adds an objective to the list of finished objectives that are to be deleted.
+     * @param objective Objective to be added.
+     */
+    public void addFinishedObjective(AUnitObjective objective) {
+        this.finishedActiveObjectives.add(objective);
+    }
+
+    /**
+     * Runs all active unit objectives.
+     */
+    public void objectivesTic() {
+        this.activeObjectives.forEach(AUnitObjective::tic);
+        this.finishedActiveObjectives.forEach(AUnitObjective::delete);
+        this.activeObjectives.removeAll(this.finishedActiveObjectives);
+        this.finishedActiveObjectives.clear();
     }
 
     /**
@@ -129,7 +168,8 @@ public final class UnitManager extends AManager implements IManager {
     }
 
     @Override
-    public void tic() {
+    public void tic()  {
+        objectivesTic();
 //        checkUnassignedUnits();
     }
 

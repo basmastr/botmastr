@@ -5,7 +5,7 @@ package botmastr;
  * @author Tomas Tomek tomas.tomek333@gmail.com
  */
 public enum EPriority {
-    LOW,
+    HIGH,
     MEDIUM,
-    HIGH;
+    LOW;
 }

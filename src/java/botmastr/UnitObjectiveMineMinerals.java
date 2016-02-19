@@ -3,7 +3,7 @@ package botmastr;
 import bwapi.Unit;
 
 /**
- * Implements single task for a unit.
+ * Objective for a worker to mine a mineral patch.
  * @author Tomas Tomek tomas.tomek333@gmail.com
  */
 public class UnitObjectiveMineMinerals extends AUnitObjective {
@@ -12,28 +12,31 @@ public class UnitObjectiveMineMinerals extends AUnitObjective {
      */
     protected Unit mineral;
 
-    public UnitObjectiveMineMinerals(Unit mineral) {
-        super();
+    public UnitObjectiveMineMinerals(UnitData unit, Unit mineral) {
+        super(unit);
         this.mineral = mineral;
     }
 
     /**
      *
+     * @param unit
      * @param mineral Unit representing the mineral patch to be mined.
      */
-    public UnitObjectiveMineMinerals(Unit mineral, EPriority priority) {
-        super(priority);
-
+    public UnitObjectiveMineMinerals(UnitData unit, Unit mineral, EPriority priority) {
+        super(priority, unit);
         this.mineral = mineral;
     }
 
     /**
      * Execute the behaviour needed for completion of this objective.
-     * @param unit
      */
     @Override
-    public void execute(UnitData unit) {
-        System.out.println("execute unit.getUnit().getType().toString() = " + unit.getUnit().getType().toString());
+    public void execute() {
+        start();
         unit.getUnit().gather(this.mineral);
+    }
+
+
+    public void tic() {
     }
 }

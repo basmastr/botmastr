@@ -41,10 +41,7 @@ public class MyBase extends ABase {
         super(main);
         final Collection<Unit> mins = main.getUnit().getUnitsInRadius(RESOURCES_THRESHOLD).stream().filter(u -> Common.TYPES_MINERALS.contains(u.getType())).collect(Collectors.toList());
         this.mineralPatches.addAll(mins);
-//        this.mineralPatches.addAll(UnitManager.getInstance().getUnitsInRadius(main.getUnit().getPosition(), RESOURCES_THRESHOLD, Common.TYPES_MINERALS));
         this.geysers.addAll(UnitManager.getInstance().getUnitsInRadius(main.getUnit().getPosition(), RESOURCES_THRESHOLD, UnitType.Resource_Vespene_Geyser));
-//        System.out.println("BaseCreation geysers found = " + UnitManager.getInstance().getUnitsInRadius(main.getUnit().getPosition(), RESOURCES_THRESHOLD, UnitType.Resource_Vespene_Geyser));
-//        System.out.println("BaseCreation geysers total = " + this.geysers.size());
         BaseManager.getInstance().addBase(this);
     }
 
@@ -81,7 +78,7 @@ public class MyBase extends ABase {
 //        System.out.println("this.geysers.size() = " + this.geysers.size());
         // TODO: 28.1.2016 temporary
         if (!this.mineralPatches.isEmpty()){
-            worker.addObjective(new UnitObjectiveMineMinerals(this.mineralPatches.iterator().next(), EPriority.MEDIUM));
+            worker.addObjective(new UnitObjectiveMineMinerals(worker, this.mineralPatches.iterator().next(), EPriority.MEDIUM));
         }
     }
 

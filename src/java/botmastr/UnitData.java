@@ -38,9 +38,27 @@ public class UnitData {
     public void addObjective(AUnitObjective newObjective) {
         final AUnitObjective oldObjective = this.plan.peek();
         this.plan.add(newObjective);
+        final AUnitObjective newTopObj = this.plan.peek();
+
         if (oldObjective == null || !oldObjective.equals(this.plan.peek())) {
             //top priority objective has changed, execute it instead of continueing in the last one
-            newObjective.execute(this);
+            if (oldObjective != null) {
+                System.out.println("Finishing objective cos we have a new one.");
+                oldObjective.finish();
+            }
+            newObjective.execute();
+        }
+    }
+
+
+    /**
+     * Notifies unit that it's objective has finished.
+     */
+    public void objectiveFinished(AUnitObjective objective) {
+        this.plan.remove(objective);
+
+        if (this.plan.peek() != null) {
+            this.plan.peek().execute();
         }
     }
 }

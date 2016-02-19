@@ -1,7 +1,9 @@
 package botmastr;
 
 import bwapi.Color;
+import bwapi.Position;
 import bwapi.Unit;
+import bwapi.UnitType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,8 @@ public final class BaseManager extends AManager implements IManager{
      * List of owned bases.
      */
     private List<MyBase> bases = new ArrayList<>();
+
+    private boolean moving;
 
     /**
      * Private constructor because this is a singleton.
@@ -50,7 +54,15 @@ public final class BaseManager extends AManager implements IManager{
 
             for (UnitData worker : UnitManager.getInstance().getUnitsByType(Common.TYPES_WORKERS)) {
                 base.assignWorker(worker);
+                if(!moving){
+                    System.out.println("Moving added");
+                    worker.getPlan().clear();
+                    worker.addObjective(new UnitObjectiveMove(worker, base.getGeysers().iterator().next().getPosition(), EPriority.HIGH));
+                    worker.addObjective(new UnitObjectiveBuild(worker, UnitType.Protoss_Assimilator, base.getGeysers().iterator().next().getTilePosition(), EPriority.HIGH));
+                    moving = true;
+                }
             }
+
 
             base.debug();
         }
