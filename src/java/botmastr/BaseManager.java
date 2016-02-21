@@ -50,13 +50,15 @@ public final class BaseManager extends AManager implements IManager{
         if (this.bases.size() > 0) {
             final MyBase base = this.bases.get(0);
             base.refreshResources();
-            base.getWorkers().clear();
+//            base.getWorkers().clear();
 
             for (UnitData worker : UnitManager.getInstance().getUnitsByType(Common.TYPES_WORKERS)) {
-                base.assignWorker(worker);
+                if (!base.getWorkers().contains(worker)) {
+                    base.assignWorker(worker);
+                }
+
                 if(!moving){
                     System.out.println("Moving added");
-                    worker.getPlan().clear();
                     worker.addObjective(new UnitObjectiveMove(worker, base.getGeysers().iterator().next().getPosition(), EPriority.HIGH));
                     worker.addObjective(new UnitObjectiveBuild(worker, UnitType.Protoss_Assimilator, base.getGeysers().iterator().next().getTilePosition(), EPriority.HIGH));
                     moving = true;

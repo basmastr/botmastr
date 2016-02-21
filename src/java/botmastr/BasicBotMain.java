@@ -38,12 +38,25 @@ public final class BasicBotMain extends DefaultBWListener {
 
         UnitManager.getInstance().tic();
         BaseManager.getInstance().tic();
+        Common.getInstance().tic();
     }
 
     @Override
     public void onUnitComplete(Unit unit) {
         System.out.println("unit complete unit.getType() = " + unit.getType());
         UnitManager.getInstance().addUnit(unit);
+    }
+
+    @Override
+    public void onUnitCreate(Unit unit) {
+        System.out.println("unit create unit.getType() = " + unit.getType());
+        UnitManager.getInstance().onUnitCreate(unit);
+    }
+
+ @Override
+    public void onUnitMorph(Unit unit) {
+        System.out.println("unit morph unit.getType() = " + unit.getType());
+        UnitManager.getInstance().onUnitCreate(unit);
     }
 
 

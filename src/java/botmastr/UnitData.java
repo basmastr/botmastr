@@ -2,6 +2,7 @@ package botmastr;
 
 import java.util.PriorityQueue;
 
+import bwapi.Position;
 import bwapi.Unit;
 
 /**
@@ -59,6 +60,17 @@ public class UnitData {
 
         if (this.plan.peek() != null) {
             this.plan.peek().execute();
+        }
+    }
+
+    /**
+     * Print debugging info for the unit.
+     */
+    public void debug() {
+        int y = this.unit.getY();
+        for (AUnitObjective o: this.plan) {
+            o.debug(new Position(this.unit.getX(), y));
+            y += 10;
         }
     }
 }

@@ -39,4 +39,9 @@ public class UnitObjectiveMineMinerals extends AUnitObjective {
 
     public void tic() {
     }
+
+    @Override
+    public String getName() {
+        return "MineMineralsObjective";
+    }
 }

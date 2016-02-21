@@ -1,5 +1,7 @@
 package botmastr;
 
+import bwapi.Position;
+
 /**
  * Base class for unit objectives.
  * @author Tomas Tomek tomas.tomek333@gmail.com
@@ -97,6 +99,20 @@ public abstract class AUnitObjective implements Comparable<AUnitObjective> {
      */
     public Boolean isActive() {
         return !this.finished;
+    }
+
+    /**
+     * Forces subclasses to implement name for debugging purposes.
+     * @return Name of the objective.
+     */
+    public abstract String getName();
+
+    /**
+     * Print debugging information for the objective.
+     * @param position Where to print.
+     */
+    public void debug(Position position) {
+        Common.getInstance().getGame().drawTextMap(position.getX(), position.getY(), getName());
     }
 
     protected class ObjectiveNotFinishedProperlyException extends Exception {

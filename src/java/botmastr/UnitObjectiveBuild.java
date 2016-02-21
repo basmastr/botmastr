@@ -49,12 +49,23 @@ public class UnitObjectiveBuild extends AUnitObjective {
     @Override
     public void execute() {
         start();
-        this.unit.getUnit().build(this.position, this.building);
     }
 
 
     public void tic() {
         this.unit.getUnit().build(this.position, this.building);
-        System.out.println("buildujeem");
+    }
+
+    public TilePosition getPosition() {
+        return this.position;
+    }
+
+    public UnitType getBuilding() {
+        return this.building;
+    }
+
+    @Override
+    public String getName() {
+        return "BuildObjective";
     }
 }

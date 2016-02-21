@@ -10,11 +10,12 @@ import java.util.List;
 /**
  * @author Tomas Tomek tomas.tomek333@gmail.com
  */
-public class Common {
+public class Common  extends AManager implements IManager  {
+
     /**
-     * Game state
+     * Singleton instance.
      */
-    protected Mirror bwapi;
+    private static final Common INSTANCE = new Common();
 
     /**
      * TODO put into Common?
@@ -29,6 +30,17 @@ public class Common {
     public static List<UnitType> TYPES_WORKERS;
 
     /**
+     * Print debugging info?
+     */
+    protected boolean debug = true;
+
+    /**
+     * Private constructor cos this is a singleton.
+     */
+    private Common() {
+    }
+
+    /**
      * Initate the manager with game state.
      * @param bwapi game state
      */
@@ -40,21 +52,16 @@ public class Common {
                 UnitType.Terran_SCV, UnitType.Protoss_Probe, UnitType.Zerg_Drone);
     }
 
-    /**
-     * Private constructor cos this is a singleton.
-     */
-    private Common() {
+    @Override
+    public void tic() {
+        if (this.debug) {
+            UnitManager.getInstance().getUnits().values().forEach(UnitData::debug);
+        }
     }
 
     public static Common getInstance() {
         return INSTANCE;
     }
-
-
-    /**
-     * Singleton intance.
-     */
-    private static final Common INSTANCE = new Common();
 
     public Mirror getBwapi() {
         return this.bwapi;
@@ -62,5 +69,9 @@ public class Common {
 
     public Game getGame() {
         return this.bwapi.getGame();
+    }
+
+    public boolean debug() {
+        return this.debug;
     }
 }

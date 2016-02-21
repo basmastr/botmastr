@@ -65,4 +65,10 @@ public class UnitObjectiveMove extends AUnitObjective {
     public void debug() {
         Common.getInstance().getGame().drawCircleMap(this.position.getX(), this.position.getY(), 10, Color.Blue);
     }
+
+
+    @Override
+    public String getName() {
+        return "MoveObjective";
+    }
 }

@@ -96,10 +96,10 @@ public final class UnitManager extends AManager implements IManager {
      * Runs all active unit objectives.
      */
     public void objectivesTic() {
-        this.activeObjectives.forEach(AUnitObjective::tic);
         this.finishedActiveObjectives.forEach(AUnitObjective::delete);
         this.activeObjectives.removeAll(this.finishedActiveObjectives);
         this.finishedActiveObjectives.clear();
+        this.activeObjectives.forEach(AUnitObjective::tic);
     }
 
     /**
@@ -174,6 +174,23 @@ public final class UnitManager extends AManager implements IManager {
     }
 
     /**
+     *
+     * @param unit
+     */
+    public void onUnitCreate(Unit unit) {
+        if (unit.getType().isBuilding() && isMine(unit)) {
+            final List<UnitObjectiveBuild> buildObjectives = this.activeObjectives.stream()
+                    .filter(UnitObjectiveBuild.class::isInstance)
+                    .map(UnitObjectiveBuild.class::cast)
+                    .filter(o -> o.getPosition().equals(unit.getTilePosition()) && o.getBuilding().equals(unit.getType()))
+                    .collect(Collectors.toList());
+            if (buildObjectives.size() > 0) {
+                buildObjectives.get(0).finish();
+            }
+        }
+    }
+
+    /**
      * Goes through all owned units and if it finds some that are not assigned to managers, it will assign them.
      */
     private void checkUnassignedUnits() {
@@ -185,5 +202,9 @@ public final class UnitManager extends AManager implements IManager {
         }
 //        this.units.addAll(this.bwapi.getGame().getAllUnits().stream().map(UnitData::new).collect(Collectors.toMap()));
 
+    }
+
+    public Map<Integer, UnitData> getUnits() {
+        return this.units;
     }
 }
