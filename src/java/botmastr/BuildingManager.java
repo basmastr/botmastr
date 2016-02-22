@@ -169,6 +169,21 @@ public final class BuildingManager extends AManager implements IResourcesRequest
                                 continue;
                             }
                         }
+
+                        if (building.requiresPsi()) {
+                            boolean creepMissing = false;
+                            for (int k=i; k<=i+building.tileWidth(); k++) {
+                                for (int l=j; l<=j+building.tileHeight(); l++) {
+                                    if (!bwapi.getGame().hasPower(new TilePosition(k, l))) {
+                                        creepMissing = true;
+                                    }
+                                    break;
+                                }
+                            }
+                            if (creepMissing) {
+                                continue;
+                            }
+                        }
                     }
                 }
             }

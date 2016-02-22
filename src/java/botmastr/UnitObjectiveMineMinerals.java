@@ -1,5 +1,6 @@
 package botmastr;
 
+import bwapi.Color;
 import bwapi.Unit;
 
 /**
@@ -38,10 +39,16 @@ public class UnitObjectiveMineMinerals extends AUnitObjective {
 
 
     public void tic() {
+        debug();
     }
 
     @Override
     public String getName() {
         return "MineMineralsObjective";
+    }
+
+
+    public void debug() {
+        Common.getInstance().getGame().drawLineMap(this.unit.getUnit().getPosition(), this.mineral.getPosition(), Color.White);
     }
 }

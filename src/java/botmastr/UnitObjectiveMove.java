@@ -42,17 +42,14 @@ public class UnitObjectiveMove extends AUnitObjective {
      */
     @Override
     public void execute() {
-        System.out.println("Moving executed");
         start();
     }
 
 
     public void tic() {
         this.unit.getUnit().move(this.position);
-        System.out.println("this.unit.getUnit().getDistance(this.position) = " + this.unit.getUnit().getDistance(this.position));
         if (this.unit.getUnit().getDistance(this.position) < DISTANCE_THRESHOLD) {
             this.unit.getUnit().stop();
-            System.out.println("Moving finished");
             finish();
         }
         debug();
@@ -61,7 +58,8 @@ public class UnitObjectiveMove extends AUnitObjective {
 
     public void debug() {
 //        Common.getInstance().getGame().drawCircleMap(this.position, 10, Color.Blue);
-        Common.getInstance().getGame().drawBoxMap(this.position, new Position(this.position.getX()+32, this.position.getY()+32), Color.Blue);
+//        Common.getInstance().getGame().drawBoxMap(this.position, new Position(this.position.getX()+32, this.position.getY()+32), Color.Blue);
+        Common.getInstance().getGame().drawLineMap(this.unit.getUnit().getPosition(), this.position, Color.White);
     }
 
 

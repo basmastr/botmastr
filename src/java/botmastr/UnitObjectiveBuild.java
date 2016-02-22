@@ -75,6 +75,6 @@ public class UnitObjectiveBuild extends AUnitObjective {
 
     @Override
     public String getName() {
-        return "BuildObjective";
+        return "BuildObjective_" + this.getBuilding().toString();
     }
 }
