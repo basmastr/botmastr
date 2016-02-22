@@ -49,14 +49,14 @@ public abstract class AUnitObjective implements Comparable<AUnitObjective> {
     /**
      * Starts the objective by adding it to the list of currently active objectives.
      */
-    protected void start() {
+    public void start() {
         UnitManager.getInstance().addActiveObjective(this);
     }
 
     /**
      * Finalizes the objective by removing it from the list of currently active objectives.
      */
-    protected void finish() {
+    public void finish() {
         this.finished = true;
         UnitManager.getInstance().addFinishedObjective(this);
     }
@@ -65,7 +65,7 @@ public abstract class AUnitObjective implements Comparable<AUnitObjective> {
      * Does the final cleanup after the objective before it is deleted.
      * Do not call this method in tic or execute methods!
      */
-    protected void delete()  {
+    public void delete()  {
         if (this.finished) {
             // TODO: 19.2.2016 solve exception throwing  ObjectiveNotFinishedProperlyException
             this.unit.objectiveFinished(this);

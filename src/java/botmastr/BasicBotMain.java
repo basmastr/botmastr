@@ -37,13 +37,13 @@ public final class BasicBotMain extends DefaultBWListener {
 
     private void buildOrder1() {
         BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.HIGH, UnitType.Protoss_Assimilator));
+        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.HIGH, UnitType.Protoss_Pylon));
     }
 
     @Override
     public void onFrame() {
 //        this.mirror.getGame().drawBoxMap(800, 100, 1300, 450, Color.Purple);
 //        this.mirror.getGame().drawCircleMap(1984, 3792, 350, Color.Purple);
-
         UnitManager.getInstance().tic();
         BaseManager.getInstance().tic();
         ResourceManager.getInstance().tic();

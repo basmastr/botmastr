@@ -4,7 +4,7 @@ package botmastr;
  * Makes top level decisions about what to do.
  * @author Tomas Tomek tomas.tomek333@gmail.com
  */
-public final class MainManager extends AManager implements IManager {
+public final class MainManager extends AManager {
     /**
      * Singleton instance.
      */

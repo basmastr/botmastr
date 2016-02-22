@@ -21,4 +21,8 @@ public abstract class AManager {
         this.bwapi = bwapi;
     }
 
+    /**
+     * Method which runs every frame and executes all the managing stuff.
+     */
+    public abstract void tic();
 }

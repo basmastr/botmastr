@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * @author Tomas Tomek tomas.tomek333@gmail.com
  */
-public class Common  extends AManager implements IManager  {
+public class Common  extends AManager {
 
     /**
      * Singleton instance.
@@ -56,6 +56,8 @@ public class Common  extends AManager implements IManager  {
     public void tic() {
         if (this.debug) {
             UnitManager.getInstance().getUnits().values().forEach(UnitData::debug);
+            ResourceManager.getInstance().debug();
+//            stream().map(IDebuggable.class::cast).forEach(IDebuggable::debug);
         }
     }
 

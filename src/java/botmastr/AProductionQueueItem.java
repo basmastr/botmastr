@@ -18,6 +18,8 @@ public abstract class AProductionQueueItem implements Comparable<AProductionQueu
         this.priority = priority;
     }
 
+    public abstract Cost getCost();
+
     @Override
     public int compareTo(AProductionQueueItem o) {
         return this.priority.compareTo(o.getPriority());

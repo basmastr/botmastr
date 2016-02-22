@@ -18,15 +18,17 @@ public class UnitObjectiveBuild extends AUnitObjective {
      */
     private TilePosition position;
 
+    protected BuildingQueueItem buildingQueueItem;
     /**
      *
      * @param unit
      * @param building
      * @param position
      */
-    public UnitObjectiveBuild(UnitData unit, UnitType building, TilePosition position) {
+    public UnitObjectiveBuild(UnitData unit, BuildingQueueItem buildingQueueItem, TilePosition position) {
         super(unit);
-        this.building = building;
+        this.building = buildingQueueItem.getBuilding();
+        this.buildingQueueItem = buildingQueueItem;
         this.position = position;
     }
 
@@ -37,9 +39,10 @@ public class UnitObjectiveBuild extends AUnitObjective {
      * @param position
      * @param priority
      */
-    public UnitObjectiveBuild(UnitData unit, UnitType building, TilePosition position, EPriority priority) {
+    public UnitObjectiveBuild(UnitData unit, BuildingQueueItem buildingQueueItem, TilePosition position, EPriority priority) {
         super(priority, unit);
-        this.building = building;
+        this.building = buildingQueueItem.getBuilding();
+        this.buildingQueueItem = buildingQueueItem;
         this.position = position;
     }
 
@@ -54,6 +57,12 @@ public class UnitObjectiveBuild extends AUnitObjective {
 
     public void tic() {
         this.unit.getUnit().build(this.building, this.position);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        this.buildingQueueItem.setState(EBuildingQueueItemStates.BUILDING);
     }
 
     public TilePosition getPosition() {

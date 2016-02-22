@@ -1,11 +1,9 @@
 package botmastr;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.stream.Collectors;
 
-import bwapi.Position;
 import bwapi.TilePosition;
 import bwapi.Unit;
 import bwapi.UnitType;
@@ -14,7 +12,7 @@ import bwapi.UnitType;
  * Takes care of keeping a list of buildings to build and actually building them.
  * @author Tomas Tomek tomas.tomek333@gmail.com
  */
-public final class BuildingManager extends AManager implements IResourcesRequestor, IManager {
+public final class BuildingManager extends AManager implements IResourcesRequestor {
 
     /**
      * Singleton instance.
@@ -50,25 +48,24 @@ public final class BuildingManager extends AManager implements IResourcesRequest
         BuildingQueueItem item = (BuildingQueueItem) request.getReason();
         item.setState(EBuildingQueueItemStates.AWAITING_WORKER_ALLOCATION);
         final TilePosition aroundPosition = this.bwapi.getGame().self().getStartLocation();
-        final UnitData unit = getBuilder(aroundPosition);
-        if (unit == null) {
+        final UnitData builder = getBuilder(aroundPosition);
+        if (builder == null) {
             item.setState(EBuildingQueueItemStates.QUEUED);
             return;
         }
         else {
-            final TilePosition position = getPlacement(unit.getUnit(), item.getBuilding(), aroundPosition);
+            final TilePosition position = getPlacement(builder.getUnit(), item.getBuilding(), aroundPosition);
             if (position == null) {
                 return;
             }
-            unit.addObjective(new UnitObjectiveMove(unit, position.toPosition(), EPriority.HIGH));
-            unit.addObjective(new UnitObjectiveBuild(unit, item.getBuilding(), position, EPriority.HIGH));
-            this.queue.remove(item);
+            builder.addObjective(new UnitObjectiveMove(builder, position.toPosition(), EPriority.HIGH));
+            builder.addObjective(new UnitObjectiveBuild(builder, item, position, EPriority.HIGH));
+//            this.queue.remove(item);
             // TODO: 22.2.2016 very temporary, need to ensure completing of the queueItem
         }
 
         //find place to build
         //find worker to build it
-        //create UnitObjectiveMineMinerals
    }
 
     @Override
@@ -86,6 +83,13 @@ public final class BuildingManager extends AManager implements IResourcesRequest
             request.send();
             item.setState(EBuildingQueueItemStates.AWAITING_RESOURCES_ALLOCATION);
         }
+
+        final PriorityQueue<BuildingQueueItem> building = getQueueItemsByState(EBuildingQueueItemStates.BUILDING);
+        if (building.size() > 0) {
+            System.out.println("something is building");
+        }
+        building.forEach(i -> ResourceManager.getInstance().requestMaterialized(i.getCost()));
+        this.queue.removeAll(building);
     }
 
     /**

@@ -48,6 +48,11 @@ public class BuildingQueueItem extends AProductionQueueItem {
         this.state = EBuildingQueueItemStates.UNQUEUED;
     }
 
+    @Override
+    public Cost getCost() {
+        return new Cost(this.building.mineralPrice(), this.building.gasPrice());
+    }
+
     public void setState(EBuildingQueueItemStates state) {
         this.state = state;
     }

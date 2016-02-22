@@ -45,7 +45,7 @@ public class UnitData {
             //top priority objective has changed, execute it instead of continueing in the last one
             if (oldObjective != null) {
                 System.out.println("Finishing objective cos we have a new one.");
-                oldObjective.finish();
+//                oldObjective.finish();
             }
             newObjective.execute();
         }

@@ -1,19 +1,16 @@
 package botmastr;
 
 import bwapi.Color;
-import bwapi.Position;
 import bwapi.Unit;
-import bwapi.UnitType;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Manages owned bases.
  * @author Tomas Tomek tomas.tomek333@gmail.com
  */
-public final class BaseManager extends AManager implements IManager{
+public final class BaseManager extends AManager {
     /**
      * Singleton instance.
      */
@@ -50,21 +47,12 @@ public final class BaseManager extends AManager implements IManager{
         if (this.bases.size() > 0) {
             final MyBase base = this.bases.get(0);
             base.refreshResources();
-//            base.getWorkers().clear();
 
             for (UnitData worker : UnitManager.getInstance().getUnitsByType(Common.TYPES_WORKERS)) {
                 if (!base.getWorkers().contains(worker)) {
                     base.assignWorker(worker);
                 }
-//
-//                if(!moving){
-//                    System.out.println("Moving added");
-//                    worker.addObjective(new UnitObjectiveMove(worker, base.getGeysers().iterator().next().getPosition(), EPriority.HIGH));
-//                    worker.addObjective(new UnitObjectiveBuild(worker, UnitType.Protoss_Assimilator, base.getGeysers().iterator().next().getTilePosition(), EPriority.HIGH));
-//                    moving = true;
-//                }
             }
-
 
             base.debug();
         }
@@ -73,18 +61,6 @@ public final class BaseManager extends AManager implements IManager{
 //            this.releaseWorkers();
 //            this.reassignWorkers();
 //        }
-    }
-
-
-    private void resourcesDebug() {
-        for (MyBase b :
-                this.bases) {
-            for (Unit u :
-                    b.getMineralPatches()) {
-                this.bwapi.getGame().drawDotMap(u.getX(), u.getY(), Color.Red);
-                System.out.println("u.getID() = " + u.getID());
-            }
-        }
     }
 
     /**

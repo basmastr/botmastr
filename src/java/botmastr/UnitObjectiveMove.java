@@ -10,7 +10,7 @@ import bwapi.UnitType;
  */
 public class UnitObjectiveMove extends AUnitObjective {
 
-    public static final Integer DISTANCE_THRESHOLD = 50;
+    public static final Integer DISTANCE_THRESHOLD = 150;
 
     /**
      * Where to move.
@@ -60,7 +60,8 @@ public class UnitObjectiveMove extends AUnitObjective {
 
 
     public void debug() {
-        Common.getInstance().getGame().drawCircleMap(this.position.getX(), this.position.getY(), 10, Color.Blue);
+//        Common.getInstance().getGame().drawCircleMap(this.position, 10, Color.Blue);
+        Common.getInstance().getGame().drawBoxMap(this.position, new Position(this.position.getX()+32, this.position.getY()+32), Color.Blue);
     }
 
 

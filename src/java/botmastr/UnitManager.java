@@ -1,18 +1,15 @@
 package botmastr;
 
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import bwapi.*;
-
-import static botmastr.AUnitObjective.*;
 
 /**
  * General unit manager.
  * @author Tomas Tomek tomas.tomek333@gmail.com
  */
-public final class UnitManager extends AManager implements IManager {
+public final class UnitManager extends AManager {
     /**
      * Singleton intance.
      */
