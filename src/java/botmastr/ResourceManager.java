@@ -30,7 +30,14 @@ public final class ResourceManager extends AManager implements IManager{
 
     @Override
     public void tic() {
-
+        //grant resources for top priority request if we have enough
+        if (!this.requests.isEmpty()) {
+            final ResourcesRequest item = this.requests.peek();
+            if (hasSufficientResources(item)) {
+                item.accept();
+                this.requests.poll();
+            }
+        }
     }
 
     /**
@@ -55,5 +62,14 @@ public final class ResourceManager extends AManager implements IManager{
      */
     protected void denyRequest(ResourcesRequest request) {
         request.deny();
+    }
+
+    /**
+     * Checks weather the player currently has enough resources to accept the request.
+     * @param request Request that needs resources.
+     * @return True if there are enough resources, false otherwise.
+     */
+    protected boolean hasSufficientResources(ResourcesRequest request) {
+        return this.bwapi.getGame().self().minerals() >= request.getMinerals() && this.bwapi.getGame().self().gas() >= request.getGas();
     }
 }

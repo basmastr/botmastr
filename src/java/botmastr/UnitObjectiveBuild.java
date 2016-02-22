@@ -53,7 +53,7 @@ public class UnitObjectiveBuild extends AUnitObjective {
 
 
     public void tic() {
-        this.unit.getUnit().build(this.position, this.building);
+        this.unit.getUnit().build(this.building, this.position);
     }
 
     public TilePosition getPosition() {

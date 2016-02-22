@@ -29,6 +29,14 @@ public final class BasicBotMain extends DefaultBWListener {
         Common.getInstance().init(this.mirror);
         UnitManager.getInstance().init(this.mirror);
         BaseManager.getInstance().init(this.mirror);
+        ResourceManager.getInstance().init(this.mirror);
+        BuildingManager.getInstance().init(this.mirror);
+        this.buildOrder1();
+    }
+
+
+    private void buildOrder1() {
+        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.HIGH, UnitType.Protoss_Assimilator));
     }
 
     @Override
@@ -38,6 +46,8 @@ public final class BasicBotMain extends DefaultBWListener {
 
         UnitManager.getInstance().tic();
         BaseManager.getInstance().tic();
+        ResourceManager.getInstance().tic();
+        BuildingManager.getInstance().tic();
         Common.getInstance().tic();
     }
 

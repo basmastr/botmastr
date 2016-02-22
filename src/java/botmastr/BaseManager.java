@@ -56,13 +56,13 @@ public final class BaseManager extends AManager implements IManager{
                 if (!base.getWorkers().contains(worker)) {
                     base.assignWorker(worker);
                 }
-
-                if(!moving){
-                    System.out.println("Moving added");
-                    worker.addObjective(new UnitObjectiveMove(worker, base.getGeysers().iterator().next().getPosition(), EPriority.HIGH));
-                    worker.addObjective(new UnitObjectiveBuild(worker, UnitType.Protoss_Assimilator, base.getGeysers().iterator().next().getTilePosition(), EPriority.HIGH));
-                    moving = true;
-                }
+//
+//                if(!moving){
+//                    System.out.println("Moving added");
+//                    worker.addObjective(new UnitObjectiveMove(worker, base.getGeysers().iterator().next().getPosition(), EPriority.HIGH));
+//                    worker.addObjective(new UnitObjectiveBuild(worker, UnitType.Protoss_Assimilator, base.getGeysers().iterator().next().getTilePosition(), EPriority.HIGH));
+//                    moving = true;
+//                }
             }
 
 

@@ -44,9 +44,6 @@ public class UnitObjectiveMove extends AUnitObjective {
     public void execute() {
         System.out.println("Moving executed");
         start();
-//        new Position(this.position.getX() * 32, this.position.getY() * 32)
-//        this.unit.getUnit().holdPosition();
-//        this.unit.getUnit().move(this.position);
     }
 
 

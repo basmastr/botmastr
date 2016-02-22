@@ -1,8 +1,11 @@
 package botmastr;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
+import java.util.stream.Collectors;
 
+import bwapi.Position;
 import bwapi.TilePosition;
 import bwapi.Unit;
 import bwapi.UnitType;
@@ -21,7 +24,7 @@ public final class BuildingManager extends AManager implements IResourcesRequest
     /**
      * Queue of buildings to build next.
      */
-    protected PriorityQueue<BuildingQueueItem> queue;
+    protected PriorityQueue<BuildingQueueItem> queue = new PriorityQueue<>();
 
     /**
      * List of owned buildings.
@@ -32,7 +35,6 @@ public final class BuildingManager extends AManager implements IResourcesRequest
      * Private because this is a singleton.
      */
     private BuildingManager() {
-        this.queue = new PriorityQueue<>();
     }
 
     public static BuildingManager getInstance() {
@@ -45,6 +47,25 @@ public final class BuildingManager extends AManager implements IResourcesRequest
      */
     @Override
     public void requestAccepted(ResourcesRequest request) {
+        BuildingQueueItem item = (BuildingQueueItem) request.getReason();
+        item.setState(EBuildingQueueItemStates.AWAITING_WORKER_ALLOCATION);
+        final TilePosition aroundPosition = this.bwapi.getGame().self().getStartLocation();
+        final UnitData unit = getBuilder(aroundPosition);
+        if (unit == null) {
+            item.setState(EBuildingQueueItemStates.QUEUED);
+            return;
+        }
+        else {
+            final TilePosition position = getPlacement(unit.getUnit(), item.getBuilding(), aroundPosition);
+            if (position == null) {
+                return;
+            }
+            unit.addObjective(new UnitObjectiveMove(unit, position.toPosition(), EPriority.HIGH));
+            unit.addObjective(new UnitObjectiveBuild(unit, item.getBuilding(), position, EPriority.HIGH));
+            this.queue.remove(item);
+            // TODO: 22.2.2016 very temporary, need to ensure completing of the queueItem
+        }
+
         //find place to build
         //find worker to build it
         //create UnitObjectiveMineMinerals
@@ -52,25 +73,42 @@ public final class BuildingManager extends AManager implements IResourcesRequest
 
     @Override
     public void requestDenied(ResourcesRequest request) {
-
+        BuildingQueueItem item = (BuildingQueueItem) request.getReason();
+        item.setState(EBuildingQueueItemStates.QUEUED);
     }
 
     @Override
     public void tic() {
-        final BuildingQueueItem item = this.queue.poll();
-        if (item != null) {
-            final ResourcesRequest request = new ResourcesRequest(item.getBuilding().mineralPrice(), item.getBuilding().gasPrice(), item);
+        final PriorityQueue<BuildingQueueItem> queued = getQueueItemsByState(EBuildingQueueItemStates.QUEUED);
+        if (!queued.isEmpty()) {
+            final BuildingQueueItem item = queued.peek();
+            final ResourcesRequest request = new ResourcesRequest(item.getBuilding().mineralPrice(), item.getBuilding().gasPrice(), item, this);
             request.send();
+            item.setState(EBuildingQueueItemStates.AWAITING_RESOURCES_ALLOCATION);
         }
     }
-//
-//    /**
-//     *
-//     * @return
-//     */
-//    protected UnitData getBuilder(TilePosition where) {
-//
-//    }
+
+    /**
+     *
+     * @return
+     */
+    protected UnitData getBuilder(TilePosition where) {
+        final List<UnitData> workers = UnitManager.getInstance().getUnitsByType(Common.TYPES_WORKERS);
+        if (workers.size() > 0) {
+            return workers.get(0);
+        }
+
+        return null;
+    }
+
+    /**
+     *
+     * @param state
+     * @return
+     */
+    private PriorityQueue<BuildingQueueItem> getQueueItemsByState(EBuildingQueueItemStates state) {
+        return this.queue.stream().filter(i -> i.getState().equals(state)).collect(Collectors.toCollection(PriorityQueue::new));
+    }
 
     /**
      * Finds a suitable position for a building.
@@ -98,7 +136,7 @@ public final class BuildingManager extends AManager implements IResourcesRequest
         while ((maxDist < stopDist) && (ret == null)) {
             for (int i=aroundTile.getX()-maxDist; i<=aroundTile.getX()+maxDist; i++) {
                 for (int j=aroundTile.getY()-maxDist; j<=aroundTile.getY()+maxDist; j++) {
-                    if (bwapi.getGame().canBuildHere(builder, new TilePosition(i,j), building, false)) {
+                    if (bwapi.getGame().canBuildHere(new TilePosition(i,j), building, builder, false)) {
                         // units that are blocking the tile
                         boolean unitsInWay = false;
                         for (Unit u : bwapi.getGame().getAllUnits()) {
@@ -137,5 +175,10 @@ public final class BuildingManager extends AManager implements IResourcesRequest
             bwapi.getGame().printf("Unable to find suitable build position for " + building.toString());
         }
         return ret;
+    }
+
+    public void addQueueItem(BuildingQueueItem item) {
+        this.queue.add(item);
+        item.setState(EBuildingQueueItemStates.QUEUED);
     }
 }

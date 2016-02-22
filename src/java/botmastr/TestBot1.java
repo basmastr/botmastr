@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import bwapi.*;
+import bwapi.Text.Size.Enum;
 import bwta.BWTA;
 import bwta.BaseLocation;
 
@@ -62,7 +63,7 @@ public class TestBot1 extends DefaultBWListener {
 
     @Override
     public void onFrame() {
-        game.setTextSize(10);
+        game.setTextSize(Enum.Default);
 //        game.drawTextScreen(10, 10, "Playing as " + self.getName() + " - " + self.getRace());
         StringBuilder units = new StringBuilder("My units:\n");
 
@@ -84,7 +85,7 @@ public class TestBot1 extends DefaultBWListener {
                     System.out.println("EXPANDER_IDLE!!!!");
                     if(self.minerals() >= 400) {
                         System.out.println("building");
-                        myUnit.build(expansion.getTilePosition(), UnitType.Protoss_Nexus);
+//                        myUnit.build(expansion.getTilePosition(), UnitType.Protoss_Nexus);
                         building = true;
                     }
                 }

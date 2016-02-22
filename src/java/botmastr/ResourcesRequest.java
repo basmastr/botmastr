@@ -37,12 +37,14 @@ public class ResourcesRequest  implements Comparable<ResourcesRequest> {
      * @param gas Amount of gas requested.
      * @param priority Priority of the request.
      * @param reason Reason for this request. Can be either UnitType or UpgradeType.
+     * @param requestor
      */
-    public ResourcesRequest(Integer minerals, Integer gas, EPriority priority, AProductionQueueItem reason) {
+    public ResourcesRequest(Integer minerals, Integer gas, EPriority priority, AProductionQueueItem reason, IResourcesRequestor requestor) {
         this.minerals = minerals;
         this.gas = gas;
         this.priority = priority;
         this.reason = reason;
+        this.requestor = requestor;
     }
 
     /**
@@ -50,12 +52,14 @@ public class ResourcesRequest  implements Comparable<ResourcesRequest> {
      * @param minerals Amount of minerals requested.
      * @param gas Amount of gas requested.
      * @param reason Reason for this request. Can be either UnitType or UpgradeType.
+     * @param requestor
      */
-    public ResourcesRequest(Integer minerals, Integer gas, AProductionQueueItem reason) {
+    public ResourcesRequest(Integer minerals, Integer gas, AProductionQueueItem reason, IResourcesRequestor requestor) {
         this.minerals = minerals;
         this.gas = gas;
         this.priority = EPriority.MEDIUM;
         this.reason = reason;
+        this.requestor = requestor;
     }
 
     /**
