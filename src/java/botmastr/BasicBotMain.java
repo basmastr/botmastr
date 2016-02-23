@@ -59,13 +59,16 @@ public final class BasicBotMain extends DefaultBWListener {
 
     @Override
     public void onFrame() {
-//        this.mirror.getGame().drawBoxMap(800, 100, 1300, 450, Color.Purple);
-//        this.mirror.getGame().drawCircleMap(1984, 3792, 350, Color.Purple);
+        final long startTime = System.nanoTime();
         UnitManager.getInstance().tic();
         BaseManager.getInstance().tic();
         ResourceManager.getInstance().tic();
         BuildingManager.getInstance().tic();
         Common.getInstance().tic();
+
+        if (Common.getInstance().time()) {
+            printOnFrameTimer(startTime);
+        }
     }
 
     @Override
@@ -84,6 +87,13 @@ public final class BasicBotMain extends DefaultBWListener {
     public void onUnitMorph(Unit unit) {
         System.out.println("unit morph unit.getType() = " + unit.getType());
         UnitManager.getInstance().onUnitCreate(unit);
+    }
+
+
+    private void printOnFrameTimer(long startTime) {
+        final long endTime = System.nanoTime();
+        final long duration = (endTime - startTime) / 1000000;
+        System.out.println(duration + "ms");
     }
 
 

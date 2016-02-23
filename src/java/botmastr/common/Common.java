@@ -38,6 +38,11 @@ public class Common  extends AManager {
     protected boolean debug = true;
 
     /**
+     * Time the onFrame execution?
+     */
+    protected boolean time = false;
+
+    /**
      * Private constructor cos this is a singleton.
      */
     private Common() {
@@ -78,5 +83,8 @@ public class Common  extends AManager {
 
     public boolean debug() {
         return this.debug;
+    }
+    public boolean time() {
+        return this.time;
     }
 }
