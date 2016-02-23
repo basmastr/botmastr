@@ -1,5 +1,9 @@
-package botmastr;
+package botmastr.production.building;
 
+import botmastr.base.MyBase;
+import botmastr.common.Cost;
+import botmastr.common.EPriority;
+import botmastr.production.AProductionQueueItem;
 import bwapi.UnitType;
 
 /**

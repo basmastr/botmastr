@@ -1,4 +1,4 @@
-package botmastr;
+package botmastr.common;
 
 /**
  * @author Tomas Tomek tomas.tomek333@gmail.com

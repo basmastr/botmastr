@@ -1,5 +1,9 @@
-package botmastr;
+package botmastr.unit.objective;
 
+import botmastr.common.Common;
+import botmastr.common.EPriority;
+import botmastr.unit.UnitData;
+import botmastr.unit.UnitManager;
 import bwapi.Position;
 
 /**

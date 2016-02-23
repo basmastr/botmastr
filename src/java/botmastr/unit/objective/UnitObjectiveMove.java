@@ -1,8 +1,10 @@
-package botmastr;
+package botmastr.unit.objective;
 
+import botmastr.common.Common;
+import botmastr.common.EPriority;
+import botmastr.unit.UnitData;
 import bwapi.Color;
 import bwapi.Position;
-import bwapi.UnitType;
 
 /**
  * Objective for unit to move to a tile.

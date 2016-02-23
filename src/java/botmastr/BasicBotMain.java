@@ -1,9 +1,14 @@
 package botmastr;
 
+import botmastr.base.BaseManager;
+import botmastr.common.Common;
+import botmastr.common.EPriority;
+import botmastr.production.building.BuildingManager;
+import botmastr.production.building.BuildingQueueItem;
+import botmastr.production.resources.ResourceManager;
+import botmastr.unit.UnitManager;
 import bwapi.*;
 import bwta.BWTA;
-
-import java.util.Arrays;
 
 /**
  * @author Tomas Tomek tomas.tomek333@gmail.com

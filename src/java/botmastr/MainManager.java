@@ -1,5 +1,7 @@
 package botmastr;
 
+import botmastr.common.AManager;
+
 /**
  * Makes top level decisions about what to do.
  * @author Tomas Tomek tomas.tomek333@gmail.com

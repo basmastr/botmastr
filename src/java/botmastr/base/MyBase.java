@@ -1,8 +1,13 @@
-package botmastr;
+package botmastr.base;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+import botmastr.common.Common;
+import botmastr.common.EPriority;
+import botmastr.unit.UnitData;
+import botmastr.unit.UnitManager;
+import botmastr.unit.objective.UnitObjectiveMineMinerals;
 import bwapi.Color;
 import bwapi.Unit;
 import bwapi.UnitType;

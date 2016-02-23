@@ -1,4 +1,8 @@
-package botmastr;
+package botmastr.production;
+
+import botmastr.common.Cost;
+import botmastr.common.EPriority;
+import botmastr.common.PriorityQueueInsertCountedItem;
 
 /**
  * Base class for queue items that require resources.

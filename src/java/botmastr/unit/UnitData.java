@@ -1,7 +1,8 @@
-package botmastr;
+package botmastr.unit;
 
 import java.util.PriorityQueue;
 
+import botmastr.unit.objective.AUnitObjective;
 import bwapi.Position;
 import bwapi.Unit;
 

@@ -1,5 +1,7 @@
 package botmastr;
 
+import botmastr.base.MyBase;
+
 /**
  * Interface for every object interested in reacting to MyBase events.
  * @see MyBase

@@ -1,10 +1,11 @@
-package botmastr;
+package botmastr.production.resources;
 
 /**
  * Needs to be implemented by all classes which want to ask for resources (minerals and/or gas) allocation.
  * @author Tomas Tomek tomas.tomek333@gmail.com
  */
 public interface IResourcesRequestor {
+
     /**
      * Informs the requestor that the request has been accepted and it should be executed.
      * @param request Request that has been accepted.

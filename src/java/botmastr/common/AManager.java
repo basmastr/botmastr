@@ -1,4 +1,4 @@
-package botmastr;
+package botmastr.common;
 
 import bwapi.Mirror;
 

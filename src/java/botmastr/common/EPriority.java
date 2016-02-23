@@ -1,4 +1,4 @@
-package botmastr;
+package botmastr.common;
 
 /**
  * Enumeration of possible priorities that the various managers can use.

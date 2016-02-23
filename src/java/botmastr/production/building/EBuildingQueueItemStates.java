@@ -1,4 +1,4 @@
-package botmastr;
+package botmastr.production.building;
 
 /**
  * Possible states of BuildingQueueItem.

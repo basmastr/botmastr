@@ -1,5 +1,9 @@
-package botmastr;
+package botmastr.unit.objective;
 
+import botmastr.production.building.BuildingQueueItem;
+import botmastr.production.building.EBuildingQueueItemStates;
+import botmastr.common.EPriority;
+import botmastr.unit.UnitData;
 import bwapi.TilePosition;
 import bwapi.UnitType;
 

@@ -1,5 +1,8 @@
-package botmastr;
+package botmastr.common;
 
+import botmastr.production.resources.ResourceManager;
+import botmastr.unit.UnitData;
+import botmastr.unit.UnitManager;
 import bwapi.Game;
 import bwapi.Mirror;
 import bwapi.UnitType;

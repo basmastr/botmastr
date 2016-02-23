@@ -1,8 +1,12 @@
-package botmastr;
+package botmastr.unit;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+import botmastr.common.AManager;
+import botmastr.unit.objective.AUnitObjective;
+import botmastr.base.MyBase;
+import botmastr.unit.objective.UnitObjectiveBuild;
 import bwapi.*;
 
 /**

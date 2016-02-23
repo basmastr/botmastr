@@ -1,6 +1,9 @@
-package botmastr;
+package botmastr.base;
 
-import bwapi.Color;
+import botmastr.common.AManager;
+import botmastr.common.Common;
+import botmastr.unit.UnitData;
+import botmastr.unit.UnitManager;
 import bwapi.Unit;
 
 import java.util.ArrayList;

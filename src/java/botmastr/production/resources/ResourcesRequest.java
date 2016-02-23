@@ -1,10 +1,15 @@
-package botmastr;
+package botmastr.production.resources;
+
+import botmastr.common.EPriority;
+import botmastr.common.PriorityQueueInsertCountedItem;
+import botmastr.production.AProductionQueueItem;
 
 /**
  * Represents a single request for resources.
  * @author Tomas Tomek tomas.tomek333@gmail.com
  */
 public class ResourcesRequest  extends PriorityQueueInsertCountedItem implements Comparable<ResourcesRequest> {
+
     /**
      * Amount of minerals requested.
      */

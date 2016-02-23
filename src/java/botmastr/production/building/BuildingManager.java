@@ -1,8 +1,19 @@
-package botmastr;
+package botmastr.production.building;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+import botmastr.production.resources.IResourcesRequestor;
+import botmastr.production.resources.ResourceManager;
+import botmastr.production.resources.ResourcesRequest;
+import botmastr.common.AManager;
+import botmastr.common.Common;
+import botmastr.common.EPriority;
+import botmastr.common.PriorityQueueInsertCounted;
+import botmastr.unit.UnitData;
+import botmastr.unit.UnitManager;
+import botmastr.unit.objective.UnitObjectiveBuild;
+import botmastr.unit.objective.UnitObjectiveMove;
 import bwapi.TilePosition;
 import bwapi.Unit;
 import bwapi.UnitType;

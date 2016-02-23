@@ -1,5 +1,6 @@
-package botmastr;
+package botmastr.base;
 
+import botmastr.unit.UnitData;
 import bwta.BWTA;
 import bwta.BaseLocation;
 

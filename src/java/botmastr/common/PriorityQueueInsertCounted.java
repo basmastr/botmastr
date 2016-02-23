@@ -1,4 +1,4 @@
-package botmastr;
+package botmastr.common;
 
 import java.util.Collection;
 import java.util.PriorityQueue;

@@ -1,10 +1,17 @@
-package botmastr;
+package botmastr.production.resources;
+
+import botmastr.IDebuggable;
+import botmastr.common.AManager;
+import botmastr.common.Common;
+import botmastr.common.Cost;
+import botmastr.common.PriorityQueueInsertCounted;
 
 /**
  * Allocates resources to incoming requests for resources.
  * @author Tomas Tomek tomas.tomek333@gmail.com
  */
 public final class ResourceManager extends AManager implements IDebuggable {
+
     /**
      * Singleton instance.
      */

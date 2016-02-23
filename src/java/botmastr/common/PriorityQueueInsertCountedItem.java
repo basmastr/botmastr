@@ -1,4 +1,4 @@
-package botmastr;
+package botmastr.common;
 
 /**
  * Extending this makes a class usable as item in PriorityQueueInsertCounted.
