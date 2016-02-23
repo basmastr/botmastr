@@ -1,8 +1,6 @@
 package botmastr;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.PriorityQueue;
 import java.util.stream.Collectors;
 
 import bwapi.TilePosition;
@@ -23,7 +21,7 @@ public final class BuildingManager extends AManager implements IResourcesRequest
     /**
      * Queue of buildings to build next.
      */
-    protected PriorityQueueInsertOrdered<BuildingQueueItem> queue = new PriorityQueueInsertOrdered<>();
+    protected PriorityQueueInsertCounted<BuildingQueueItem> queue = new PriorityQueueInsertCounted<>();
 
     /**
      * List of owned buildings.
@@ -77,7 +75,7 @@ public final class BuildingManager extends AManager implements IResourcesRequest
 
     @Override
     public void tic() {
-        final PriorityQueueInsertOrdered<BuildingQueueItem> queued = getQueueItemsByState(EBuildingQueueItemStates.QUEUED);
+        final PriorityQueueInsertCounted<BuildingQueueItem> queued = getQueueItemsByState(EBuildingQueueItemStates.QUEUED);
         if (!queued.isEmpty()) {
             final BuildingQueueItem item = queued.peek();
             final ResourcesRequest request = new ResourcesRequest(item.getBuilding().mineralPrice(), item.getBuilding().gasPrice(), item, this);
@@ -85,10 +83,7 @@ public final class BuildingManager extends AManager implements IResourcesRequest
             item.setState(EBuildingQueueItemStates.AWAITING_RESOURCES_ALLOCATION);
         }
 
-        final PriorityQueueInsertOrdered<BuildingQueueItem> building = getQueueItemsByState(EBuildingQueueItemStates.BUILDING);
-        if (building.size() > 0) {
-            System.out.println("something is building");
-        }
+        final PriorityQueueInsertCounted<BuildingQueueItem> building = getQueueItemsByState(EBuildingQueueItemStates.BUILDING);
         building.forEach(i -> ResourceManager.getInstance().requestMaterialized(i.getCost()));
         this.queue.removeAll(building);
     }
@@ -111,9 +106,9 @@ public final class BuildingManager extends AManager implements IResourcesRequest
      * @param state
      * @return
      */
-    private PriorityQueueInsertOrdered<BuildingQueueItem> getQueueItemsByState(EBuildingQueueItemStates state) {
+    private PriorityQueueInsertCounted<BuildingQueueItem> getQueueItemsByState(EBuildingQueueItemStates state) {
         //constructor for PQIO with setting of the numberInserted
-        return this.queue.stream().filter(i -> i.getState().equals(state)).collect(Collectors.toCollection(PriorityQueueInsertOrdered::new));
+        return this.queue.stream().filter(i -> i.getState().equals(state)).collect(Collectors.toCollection(PriorityQueueInsertCounted::new));
     }
 
     /**

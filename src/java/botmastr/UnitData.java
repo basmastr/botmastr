@@ -42,11 +42,6 @@ public class UnitData {
         final AUnitObjective newTopObj = this.plan.peek();
 
         if (oldObjective == null || !oldObjective.equals(this.plan.peek())) {
-            //top priority objective has changed, execute it instead of continueing in the last one
-            if (oldObjective != null) {
-                System.out.println("Finishing objective cos we have a new one.");
-//                oldObjective.finish();
-            }
             newObjective.execute();
         }
     }

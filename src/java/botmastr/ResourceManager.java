@@ -1,7 +1,5 @@
 package botmastr;
 
-import java.util.PriorityQueue;
-
 /**
  * Allocates resources to incoming requests for resources.
  * @author Tomas Tomek tomas.tomek333@gmail.com
@@ -15,7 +13,7 @@ public final class ResourceManager extends AManager implements IDebuggable {
     /**
      * Stores all awaiting requests for resources.
      */
-    protected PriorityQueueInsertOrdered<ResourcesRequest> requests = new PriorityQueueInsertOrdered<>();
+    protected PriorityQueueInsertCounted<ResourcesRequest> requests = new PriorityQueueInsertCounted<>();
 
     protected Integer promisedMinerals = 0;
     protected Integer promisedGas = 0;

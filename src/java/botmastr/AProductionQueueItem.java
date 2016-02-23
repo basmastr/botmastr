@@ -4,7 +4,7 @@ package botmastr;
  * Base class for queue items that require resources.
  * @author Tomas Tomek tomas.tomek333@gmail.com
  */
-public abstract class AProductionQueueItem extends APQInsertable implements Comparable<AProductionQueueItem> {
+public abstract class AProductionQueueItem extends PriorityQueueInsertCountedItem implements Comparable<AProductionQueueItem> {
     /**
      * Priority of this item in the quere (higher means it will be allocated resources sooner).
      */
@@ -30,8 +30,8 @@ public abstract class AProductionQueueItem extends APQInsertable implements Comp
     public int compareTo(AProductionQueueItem o) {
         final int ret = this.priority.compareTo(o.getPriority());
 
-        if (ret == 0 && this.insertOrder != null) {
-            return this.insertOrder.compareTo(o.getInsertOrder());
+        if (ret == 0) {
+            return super.compareTo(o);
         }
 
         return ret;
