@@ -112,6 +112,7 @@ public final class BuildingManager extends AManager implements IResourcesRequest
      * @return
      */
     private PriorityQueueInsertOrdered<BuildingQueueItem> getQueueItemsByState(EBuildingQueueItemStates state) {
+        //constructor for PQIO with setting of the numberInserted
         return this.queue.stream().filter(i -> i.getState().equals(state)).collect(Collectors.toCollection(PriorityQueueInsertOrdered::new));
     }
 

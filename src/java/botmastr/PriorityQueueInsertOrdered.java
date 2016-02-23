@@ -18,7 +18,10 @@ public class PriorityQueueInsertOrdered<E extends APQInsertable> extends Priorit
 //    }
     @Override
         public boolean offer(E o) {
-            o.setInsertOrder(this.insertCount);
+            // check neccessary cos offer is used by constructor from collection aswell
+            if (!o.isInserted()) {
+                o.setInsertOrder(this.insertCount);
+            }
             final boolean ret = super.offer(o);
             this.insertCount++;
             return ret;

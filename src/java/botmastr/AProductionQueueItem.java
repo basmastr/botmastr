@@ -30,7 +30,7 @@ public abstract class AProductionQueueItem extends APQInsertable implements Comp
     public int compareTo(AProductionQueueItem o) {
         final int ret = this.priority.compareTo(o.getPriority());
 
-        if (ret == 0) {
+        if (ret == 0 && this.insertOrder != null) {
             return this.insertOrder.compareTo(o.getInsertOrder());
         }
 

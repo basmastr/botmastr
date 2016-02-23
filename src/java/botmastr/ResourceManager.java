@@ -15,7 +15,7 @@ public final class ResourceManager extends AManager implements IDebuggable {
     /**
      * Stores all awaiting requests for resources.
      */
-    protected PriorityQueue<ResourcesRequest> requests;
+    protected PriorityQueueInsertOrdered<ResourcesRequest> requests = new PriorityQueueInsertOrdered<>();
 
     protected Integer promisedMinerals = 0;
     protected Integer promisedGas = 0;
@@ -24,7 +24,6 @@ public final class ResourceManager extends AManager implements IDebuggable {
      * Private constructor because this is a singleton.
      */
     private ResourceManager() {
-        this.requests = new PriorityQueue<>();
     }
 
     public static ResourceManager getInstance() {
@@ -97,13 +96,14 @@ public final class ResourceManager extends AManager implements IDebuggable {
      * @return Current minerals minus promised minerals.
      */
     protected Integer getEffectiveMinerals() {
-        return this.bwapi.getGame().self().minerals() - promisedMinerals;
+        return this.bwapi.getGame().self().minerals() - this.promisedMinerals;
     }
+
     /**
      * Returns player's gas deducted by gas promised to previous, not yet materialized, requests.
      * @return Current gas minus promised gas.
      */
     protected Integer getEffectiveGas() {
-        return this.bwapi.getGame().self().gas() - promisedGas;
+        return this.bwapi.getGame().self().gas() - this.promisedGas;
     }
 }

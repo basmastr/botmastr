@@ -4,7 +4,7 @@ package botmastr;
  * Represents a single request for resources.
  * @author Tomas Tomek tomas.tomek333@gmail.com
  */
-public class ResourcesRequest  implements Comparable<ResourcesRequest> {
+public class ResourcesRequest  extends APQInsertable implements Comparable<ResourcesRequest> {
     /**
      * Amount of minerals requested.
      */
@@ -30,6 +30,15 @@ public class ResourcesRequest  implements Comparable<ResourcesRequest> {
      * What are the resources for.
      */
     protected AProductionQueueItem reason;
+
+    public ResourcesRequest(ResourcesRequest other) {
+        super(other);
+        this.minerals = other.minerals;
+        this.gas = other.gas;
+        this.priority = other.priority;
+        this.requestor = other.requestor;
+        this.reason = other.reason;
+    }
 
     /**
      * Construtor for requests with known priority.
@@ -104,8 +113,20 @@ public class ResourcesRequest  implements Comparable<ResourcesRequest> {
         return this.reason;
     }
 
+//    @Override
+//    public int compareTo(ResourcesRequest o) {
+//        return this.priority.compareTo(o.getPriority());
+//    }
+
     @Override
     public int compareTo(ResourcesRequest o) {
-        return this.priority.compareTo(o.getPriority());
+        final int ret = this.priority.compareTo(o.getPriority());
+
+        if (ret == 0 && this.insertOrder != null) {
+            return this.insertOrder.compareTo(o.getInsertOrder());
+        }
+
+        return ret;
     }
+
 }
