@@ -1,5 +1,6 @@
 package botmastr;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.stream.Collectors;
@@ -22,7 +23,7 @@ public final class BuildingManager extends AManager implements IResourcesRequest
     /**
      * Queue of buildings to build next.
      */
-    protected PriorityQueue<BuildingQueueItem> queue = new PriorityQueue<>();
+    protected PriorityQueueInsertOrdered<BuildingQueueItem> queue = new PriorityQueueInsertOrdered<>();
 
     /**
      * List of owned buildings.
@@ -76,7 +77,7 @@ public final class BuildingManager extends AManager implements IResourcesRequest
 
     @Override
     public void tic() {
-        final PriorityQueue<BuildingQueueItem> queued = getQueueItemsByState(EBuildingQueueItemStates.QUEUED);
+        final PriorityQueueInsertOrdered<BuildingQueueItem> queued = getQueueItemsByState(EBuildingQueueItemStates.QUEUED);
         if (!queued.isEmpty()) {
             final BuildingQueueItem item = queued.peek();
             final ResourcesRequest request = new ResourcesRequest(item.getBuilding().mineralPrice(), item.getBuilding().gasPrice(), item, this);
@@ -84,7 +85,7 @@ public final class BuildingManager extends AManager implements IResourcesRequest
             item.setState(EBuildingQueueItemStates.AWAITING_RESOURCES_ALLOCATION);
         }
 
-        final PriorityQueue<BuildingQueueItem> building = getQueueItemsByState(EBuildingQueueItemStates.BUILDING);
+        final PriorityQueueInsertOrdered<BuildingQueueItem> building = getQueueItemsByState(EBuildingQueueItemStates.BUILDING);
         if (building.size() > 0) {
             System.out.println("something is building");
         }
@@ -110,8 +111,8 @@ public final class BuildingManager extends AManager implements IResourcesRequest
      * @param state
      * @return
      */
-    private PriorityQueue<BuildingQueueItem> getQueueItemsByState(EBuildingQueueItemStates state) {
-        return this.queue.stream().filter(i -> i.getState().equals(state)).collect(Collectors.toCollection(PriorityQueue::new));
+    private PriorityQueueInsertOrdered<BuildingQueueItem> getQueueItemsByState(EBuildingQueueItemStates state) {
+        return this.queue.stream().filter(i -> i.getState().equals(state)).collect(Collectors.toCollection(PriorityQueueInsertOrdered::new));
     }
 
     /**

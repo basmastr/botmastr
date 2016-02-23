@@ -23,6 +23,13 @@ public class BuildingQueueItem extends AProductionQueueItem {
      */
     protected EBuildingQueueItemStates state;
 
+    public BuildingQueueItem(BuildingQueueItem other) {
+        super(other);
+        this.building = other.building;
+        this.base = other.base;
+        this.state = other.state;
+    }
+
     /**
      * Constructor for item without explicitly set base to be built in.
      * @param priority priority of the item in the build queue
