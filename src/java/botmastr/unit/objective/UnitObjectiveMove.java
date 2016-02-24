@@ -5,6 +5,7 @@ import botmastr.common.EPriority;
 import botmastr.unit.UnitData;
 import bwapi.Color;
 import bwapi.Position;
+import bwapi.Unit;
 
 /**
  * Objective for unit to move to a tile.
@@ -49,9 +50,14 @@ public class UnitObjectiveMove extends AUnitObjective {
 
 
     public void tic() {
-        this.unit.getUnit().move(this.position);
-        if (this.unit.getUnit().getDistance(this.position) < DISTANCE_THRESHOLD) {
-            this.unit.getUnit().stop();
+        final Unit unit = this.unit.getUnit();
+
+        if (!unit.getTargetPosition().equals(this.position)) {
+            unit.move(this.position);
+        }
+
+        if (unit.getDistance(this.position) < DISTANCE_THRESHOLD) {
+            unit.stop();
             finish();
         }
         debug();
