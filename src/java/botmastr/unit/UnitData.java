@@ -69,4 +69,12 @@ public class UnitData {
             y += 10;
         }
     }
+
+    /**
+     * Checks if this unit is doing something.
+     * @return True if unit has no objectives, false otherwise.
+     */
+    public boolean idle() {
+        return this.plan.size() == 0;
+    }
 }

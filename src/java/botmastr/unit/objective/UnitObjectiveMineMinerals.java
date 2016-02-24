@@ -40,8 +40,26 @@ public class UnitObjectiveMineMinerals extends AUnitObjective {
         unit.getUnit().gather(this.mineral);
     }
 
+    public Unit getMineral() {
+        return this.mineral;
+    }
+
+    /**
+     * Changes the mineral patch to mine.
+     * @param mineral new mineral to mine
+     */
+    public void setMineral(Unit mineral) {
+        this.mineral = mineral;
+    }
 
     public void tic() {
+//        final int updateInterval = 60;
+//        if (Common.getInstance().getGame().getFrameCount() % updateInterval == 0) {
+//            final Unit unit = this.unit.getUnit();
+//            if (!unit.getTarget().equals(this.mineral)) {
+//                unit.gather(this.mineral);
+//            }
+//        }
         debug();
     }
 

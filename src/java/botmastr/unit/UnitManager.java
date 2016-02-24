@@ -191,6 +191,13 @@ public final class UnitManager extends AManager {
         }
     }
 
+
+    public void onUnitComplete(Unit unit) {
+        if (isMine(unit)) {
+            UnitManager.getInstance().addUnit(unit);
+        }
+    }
+
     /**
      * Goes through all owned units and if it finds some that are not assigned to managers, it will assign them.
      */

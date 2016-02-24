@@ -44,7 +44,7 @@ public final class BasicBotMain extends DefaultBWListener {
 //        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.HIGH, UnitType.Terran_Refinery));
 //        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.HIGH, UnitType.Terran_Supply_Depot));
 //        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.HIGH, UnitType.Terran_Barracks));
-        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.HIGH, UnitType.Protoss_Pylon));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.HIGH, UnitType.Protoss_Pylon));
         BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Gateway));
         BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.HIGH, UnitType.Protoss_Assimilator));
         BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.MEDIUM, UnitType.Protoss_Pylon));
@@ -74,7 +74,7 @@ public final class BasicBotMain extends DefaultBWListener {
     @Override
     public void onUnitComplete(Unit unit) {
         System.out.println("unit complete unit.getType() = " + unit.getType());
-        UnitManager.getInstance().addUnit(unit);
+        UnitManager.getInstance().onUnitComplete(unit);
     }
 
     @Override

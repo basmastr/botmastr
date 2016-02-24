@@ -25,6 +25,7 @@ public class Common  extends AManager {
      * Contains all UnitTypes that are mineral fields.
      */
     public static List<UnitType> TYPES_MINERALS;
+    public static List<UnitType> TYPES_REFINERIES;
 
     /**
      * TODO put into Common?
@@ -58,6 +59,9 @@ public class Common  extends AManager {
                 UnitType.Resource_Mineral_Field, UnitType.Resource_Mineral_Field_Type_2, UnitType.Resource_Mineral_Field_Type_3);
         TYPES_WORKERS = Arrays.asList(
                 UnitType.Terran_SCV, UnitType.Protoss_Probe, UnitType.Zerg_Drone);
+
+        TYPES_REFINERIES = Arrays.asList(
+                UnitType.Terran_Refinery, UnitType.Protoss_Assimilator, UnitType.Zerg_Extractor);
     }
 
     @Override

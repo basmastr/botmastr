@@ -24,8 +24,6 @@ public final class BaseManager extends AManager {
      */
     private List<MyBase> bases = new ArrayList<>();
 
-    private boolean moving;
-
     /**
      * Private constructor because this is a singleton.
      */
@@ -49,7 +47,6 @@ public final class BaseManager extends AManager {
         final int updateInterval = 40;
         if (this.bases.size() > 0) {
             final MyBase base = this.bases.get(0);
-            base.refreshResources();
 
             for (UnitData worker : UnitManager.getInstance().getUnitsByType(Common.TYPES_WORKERS)) {
                 if (!base.getWorkers().contains(worker)) {
@@ -57,48 +54,10 @@ public final class BaseManager extends AManager {
                 }
             }
 
-            base.debug();
+            base.tic();
         }
 //        if (this.bwapi.getGame().getFrameCount() % updateInterval == 0) { //only update at a certain interval
-//            // TODO: 15.2.2016 go through bases and call base's tic method
-//            this.releaseWorkers();
-//            this.reassignWorkers();
-//        }
     }
-
-    /**
-     * Add vespene geyser unit to a base if there is one in the necessary threshold
-     * @see MyBase.RESOURCES_THRESHOLD
-     * @param unit
-     */
-    public void addGeyser(Unit unit) {
-        for (MyBase b: this.bases) {
-            if (b.main.getUnit().getDistance(unit) <= MyBase.RESOURCES_THRESHOLD) {
-                b.addGeyser(unit);
-            }
-        }
-    }
-
-    /**
-     * Add vespene mineral unit to a base if there is one in the necessary threshold
-     * @see MyBase.RESOURCES_THRESHOLD
-     * @param unit
-     */
-    public void addMineralPatch(Unit unit) {
-        for (MyBase b: this.bases) {
-            if (b.main.getUnit().getDistance(unit) <= MyBase.RESOURCES_THRESHOLD) {
-                b.addMineralPatch(unit);
-            }
-        }
-    }
-
-    private void releaseWorkers() {
-        if (this.bases.size() > 0) {
-            final MyBase base = this.bases.get(0);
-            base.getWorkers().clear();
-        }
-    }
-
 
     private void reassignWorkers() {
         // TODO: 28.1.2016 temporary

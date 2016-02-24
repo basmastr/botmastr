@@ -3,6 +3,8 @@ package botmastr.base;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import botmastr.base.mining.BasicMiningStrategy;
+import botmastr.base.mining.IMiningStrategy;
 import botmastr.common.Common;
 import botmastr.common.EPriority;
 import botmastr.unit.UnitData;
@@ -21,33 +23,52 @@ public class MyBase extends ABase {
      *
      */
     public static final Integer RESOURCES_THRESHOLD = 400;
+    public static final Integer MAX_WORKERS_PER_GAS = 3;
+    // TODO: 24.2.2016 study effective mineral mining
+    public static final Integer MAX_WORKERS_PER_MINERAL = 2;
 
     /**
      * Workers attached to this base.
      */
-    private Set<UnitData> workers = new HashSet<>();
+    protected Set<UnitData> workers = new HashSet<>();
+
+    /**
+     * Mineral patches in the region of this base.
+     */
+    protected Set<Unit> mineralPatches = new HashSet<>();
 
     /**
      *
      */
-    private Set<Unit> mineralPatches = new HashSet<>();
+    protected Set<Unit> geysers = new HashSet<>();
 
-    /**
-     *
-     */
-    private Set<Unit> geysers = new HashSet<>();
+    protected IMiningStrategy miningStrategy;
 
     /**
      *
      * @param main
-     * @param baseLocation
      */
     public MyBase(UnitData main) {
         super(main);
-        final Collection<Unit> mins = main.getUnit().getUnitsInRadius(RESOURCES_THRESHOLD).stream().filter(u -> Common.TYPES_MINERALS.contains(u.getType())).collect(Collectors.toList());
-        this.mineralPatches.addAll(mins);
+        this.miningStrategy = new BasicMiningStrategy();
+        this.mineralPatches.addAll(main.getUnit().getUnitsInRadius(RESOURCES_THRESHOLD).stream().filter(u -> Common.TYPES_MINERALS.contains(u.getType())).collect(Collectors.toList()));
         this.geysers.addAll(UnitManager.getInstance().getUnitsInRadius(main.getUnit().getPosition(), RESOURCES_THRESHOLD, UnitType.Resource_Vespene_Geyser));
         BaseManager.getInstance().addBase(this);
+    }
+
+
+    public void tic() {
+        refreshResources();
+        this.miningStrategy.tic(this.workers, this.mineralPatches, getRefineries());
+        debug();
+    }
+
+    /**
+     * Maps geysers of the base to refineries (if they are built) and returns them in a set.
+     * @return Set of completed refineries belonging to this base.
+     */
+    protected Set<Unit> getRefineries() {
+        return this.geysers.stream().filter(o -> o.getType().isRefinery() && o.isCompleted()).collect(Collectors.toSet());
     }
 
     /**
@@ -78,13 +99,6 @@ public class MyBase extends ABase {
      */
     public void assignWorker(UnitData worker) {
         this.workers.add(worker);
-//        System.out.println("this.workers.size() = " + this.workers.size());
-//        System.out.println("this.mineralPatches.size() = " + this.mineralPatches.size());
-//        System.out.println("this.geysers.size() = " + this.geysers.size());
-        // TODO: 28.1.2016 temporary
-        if (!this.mineralPatches.isEmpty()){
-            worker.addObjective(new UnitObjectiveMineMinerals(worker, this.mineralPatches.iterator().next(), EPriority.MEDIUM));
-        }
     }
 
     public Set<UnitData> getWorkers() {
@@ -114,6 +128,7 @@ public class MyBase extends ABase {
         this.geysers.clear();
         this.mineralPatches.clear();
         this.geysers.addAll(UnitManager.getInstance().getUnitsInRadius(this.main.getUnit().getPosition(), RESOURCES_THRESHOLD, UnitType.Resource_Vespene_Geyser));
+        this.geysers.addAll(UnitManager.getInstance().getUnitsInRadius(this.main.getUnit().getPosition(), RESOURCES_THRESHOLD, Common.TYPES_REFINERIES));
         this.mineralPatches.addAll(UnitManager.getInstance().getUnitsInRadius(this.main.getUnit().getPosition(), RESOURCES_THRESHOLD,  Common.TYPES_MINERALS));
     }
 
