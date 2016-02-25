@@ -5,6 +5,7 @@ import botmastr.unit.UnitData;
 import botmastr.unit.UnitManager;
 import bwapi.Game;
 import bwapi.Mirror;
+import bwapi.Player;
 import bwapi.UnitType;
 
 import java.util.Arrays;
@@ -83,6 +84,10 @@ public class Common  extends AManager {
 
     public Game getGame() {
         return this.bwapi.getGame();
+    }
+
+    public Player getPlayer() {
+        return this.bwapi.getGame().self();
     }
 
     public boolean debug() {
