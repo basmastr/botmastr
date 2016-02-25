@@ -1,5 +1,6 @@
 package botmastr.unit.objective;
 
+import botmastr.common.Common;
 import botmastr.production.building.BuildingQueueItem;
 import botmastr.production.building.EBuildingQueueItemStates;
 import botmastr.common.EPriority;
@@ -60,7 +61,9 @@ public class UnitObjectiveBuild extends AUnitObjective {
 
 
     public void tic() {
-        this.unit.getUnit().build(this.building, this.position);
+        if (Common.getInstance().getGame().canMake(this.building)) {
+            this.unit.getUnit().build(this.building, this.position);
+        }
     }
 
     @Override

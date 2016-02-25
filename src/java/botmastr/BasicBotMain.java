@@ -50,27 +50,31 @@ public final class BasicBotMain extends DefaultBWListener {
         TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.HIGH, UnitType.Protoss_Probe));
         TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.HIGH, UnitType.Protoss_Probe));
         TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.HIGH, UnitType.Protoss_Probe));
-        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.MEDIUM, UnitType.Protoss_Probe));
-        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.MEDIUM, UnitType.Protoss_Probe));
-        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.MEDIUM, UnitType.Protoss_Probe));
-        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.MEDIUM, UnitType.Protoss_Probe));
-        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.MEDIUM, UnitType.Protoss_Probe));
-        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.MEDIUM, UnitType.Protoss_Probe));
-        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.MEDIUM, UnitType.Protoss_Probe));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.HIGH, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.HIGH, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.MEDIUM, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.MEDIUM, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.MEDIUM, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.MEDIUM, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.MEDIUM, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.MEDIUM, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.MEDIUM, UnitType.Protoss_Probe));
     }
 
     private void buildOrder1() {
 //        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.HIGH, UnitType.Terran_Refinery));
 //        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.HIGH, UnitType.Terran_Supply_Depot));
 //        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.HIGH, UnitType.Terran_Barracks));
-//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.HIGH, UnitType.Protoss_Pylon));
 //        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Gateway));
-        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.MEDIUM, UnitType.Protoss_Assimilator));
-        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.HIGH, UnitType.Protoss_Pylon));
-        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.MEDIUM, UnitType.Protoss_Pylon));
-        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.MEDIUM, UnitType.Protoss_Pylon));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.MEDIUM, UnitType.Protoss_Assimilator));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.HIGH, UnitType.Protoss_Pylon));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.MEDIUM, UnitType.Protoss_Pylon));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.MEDIUM, UnitType.Protoss_Pylon));
 //        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.HIGH, UnitType.Protoss_Gateway));
-        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Forge));
+        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.MEDIUM, UnitType.Protoss_Forge));
+        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.HIGH, UnitType.Protoss_Pylon));
+        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.HIGH, UnitType.Protoss_Pylon));
+        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.HIGH, UnitType.Protoss_Pylon));
         BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
         BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
         BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
@@ -89,6 +93,12 @@ public final class BasicBotMain extends DefaultBWListener {
         BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
         BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
         BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
+        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
+        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
 //        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.HIGH, UnitType.Protoss_Pylon));
 //        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.HIGH, UnitType.Protoss_Nexus));
 //        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Pylon));

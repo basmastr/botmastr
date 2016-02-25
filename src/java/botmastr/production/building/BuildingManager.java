@@ -118,7 +118,6 @@ public final class BuildingManager extends AManager implements IResourcesRequest
      * @return
      */
     private PriorityQueueInsertCounted<BuildingQueueItem> getQueueItemsByState(EBuildingQueueItemStates state) {
-        //constructor for PQIO with setting of the numberInserted
         return this.queue.stream().filter(i -> i.getState().equals(state)).collect(Collectors.toCollection(PriorityQueueInsertCounted::new));
     }
 
@@ -128,6 +127,7 @@ public final class BuildingManager extends AManager implements IResourcesRequest
      * @param building What type of building we need a placement for.
      * @param aroundTile What type of building we need a placement for.
      * @return
+     * @author inspired by Plankton's Loki bot
      */
     protected TilePosition getPlacement(Unit builder, UnitType building, TilePosition aroundTile) {
         TilePosition ret = null;
@@ -149,7 +149,8 @@ public final class BuildingManager extends AManager implements IResourcesRequest
             for (int i=aroundTile.getX()-maxDist; i<=aroundTile.getX()+maxDist; i++) {
                 for (int j=aroundTile.getY()-maxDist; j<=aroundTile.getY()+maxDist; j++) {
                     if (bwapi.getGame().canBuildHere(new TilePosition(i,j), building, builder, false)) {
-                        // units that are blocking the tile
+
+//                        // units that are blocking the tile
                         boolean unitsInWay = false;
                         for (Unit u : bwapi.getGame().getAllUnits()) {
                             if (u.getID() == builder.getID()) {
@@ -162,40 +163,40 @@ public final class BuildingManager extends AManager implements IResourcesRequest
                         if (!unitsInWay) {
                             return new TilePosition(i,j);
                         }
-                        // creep for Zerg
-                        if (building.requiresCreep()) {
-                            boolean creepMissing = false;
-                            for (int k=i; k<=i+building.tileWidth(); k++) {
-                                for (int l=j; l<=j+building.tileHeight(); l++) {
-                                    if (!bwapi.getGame().hasCreep(new TilePosition(k, l))) {
-                                        creepMissing = true;
-                                    }
-                                    break;
-                                }
-                            }
-                            if (creepMissing) {
-                                continue;
-                            }
-                        }
-
-                        if (building.requiresPsi()) {
-                            boolean creepMissing = false;
-                            for (int k=i; k<=i+building.tileWidth(); k++) {
-                                for (int l=j; l<=j+building.tileHeight(); l++) {
-                                    if (!bwapi.getGame().hasPower(new TilePosition(k, l))) {
-                                        creepMissing = true;
-                                    }
-                                    break;
-                                }
-                            }
-                            if (creepMissing) {
-                                continue;
-                            }
-                        }
+//                        // creep for Zerg
+//                        if (building.requiresCreep()) {
+//                            boolean creepMissing = false;
+//                            for (int k=i; k<=i+building.tileWidth(); k++) {
+//                                for (int l=j; l<=j+building.tileHeight(); l++) {
+//                                    if (!bwapi.getGame().hasCreep(new TilePosition(k, l))) {
+//                                        creepMissing = true;
+//                                    }
+//                                    break;
+//                                }
+//                            }
+//                            if (creepMissing) {
+//                                continue;
+//                            }
+//                        }
+//
+//                        if (building.requiresPsi()) {
+//                            boolean creepMissing = false;
+//                            for (int k=i; k<=i+building.tileWidth(); k++) {
+//                                for (int l=j; l<=j+building.tileHeight(); l++) {
+//                                    if (!bwapi.getGame().hasPower(new TilePosition(k, l))) {
+//                                        creepMissing = true;
+//                                    }
+//                                    break;
+//                                }
+//                            }
+//                            if (creepMissing) {
+//                                continue;
+//                            }
+//                        }
                     }
                 }
             }
-            maxDist += 2;
+            maxDist++;
         }
 
         if (ret == null) {
