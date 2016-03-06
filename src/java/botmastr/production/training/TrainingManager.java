@@ -4,6 +4,7 @@ import java.util.stream.Collectors;
 
 import botmastr.common.AManager;
 import botmastr.common.Common;
+import botmastr.common.Cost;
 import botmastr.common.PriorityQueueInsertCounted;
 import botmastr.production.resources.IResourcesRequestor;
 import botmastr.production.resources.ResourceManager;
@@ -89,7 +90,8 @@ public final class TrainingManager extends AManager implements IResourcesRequest
         for (TrainingQueueItem item :
                 items) {
 
-            final ResourcesRequest request = new ResourcesRequest(item.getTrainee().mineralPrice(), item.getTrainee().gasPrice(), item, this);
+            final Cost resourceNeeded = new Cost(item.getTrainee().mineralPrice(), item.getTrainee().gasPrice());
+            final ResourcesRequest request = new ResourcesRequest(resourceNeeded, item, this);
             request.send();
             item.advanceState();
         }

@@ -3,13 +3,10 @@ package botmastr.production.building;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import botmastr.common.*;
 import botmastr.production.resources.IResourcesRequestor;
 import botmastr.production.resources.ResourceManager;
 import botmastr.production.resources.ResourcesRequest;
-import botmastr.common.AManager;
-import botmastr.common.Common;
-import botmastr.common.EPriority;
-import botmastr.common.PriorityQueueInsertCounted;
 import botmastr.unit.UnitData;
 import botmastr.unit.UnitManager;
 import botmastr.unit.objective.UnitObjectiveBuild;
@@ -80,7 +77,7 @@ public final class BuildingManager extends AManager implements IResourcesRequest
 
     @Override
     public void requestDenied(ResourcesRequest request) {
-        BuildingQueueItem item = (BuildingQueueItem) request.getReason();
+        final BuildingQueueItem item = (BuildingQueueItem) request.getReason();
         item.setState(EBuildingQueueItemStates.QUEUED);
     }
 
@@ -89,7 +86,8 @@ public final class BuildingManager extends AManager implements IResourcesRequest
         final PriorityQueueInsertCounted<BuildingQueueItem> queued = getQueueItemsByState(EBuildingQueueItemStates.QUEUED);
         if (!queued.isEmpty()) {
             final BuildingQueueItem item = queued.peek();
-            final ResourcesRequest request = new ResourcesRequest(item.getBuilding().mineralPrice(), item.getBuilding().gasPrice(), item, this);
+            final Cost resources = new Cost(item.getBuilding().mineralPrice(), item.getBuilding().gasPrice());
+            final ResourcesRequest request = new ResourcesRequest(resources, item, this);
             request.send();
             item.setState(EBuildingQueueItemStates.AWAITING_RESOURCES_ALLOCATION);
         }

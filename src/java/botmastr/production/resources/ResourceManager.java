@@ -22,7 +22,14 @@ public final class ResourceManager extends AManager implements IDebuggable {
      */
     protected PriorityQueueInsertCounted<ResourcesRequest> requests = new PriorityQueueInsertCounted<>();
 
+    /**
+     * Minerals already promised to previous requests.
+     */
     protected Integer promisedMinerals = 0;
+
+    /**
+     * Gas already promised to previous requests.
+     */
     protected Integer promisedGas = 0;
 
     /**
@@ -74,8 +81,8 @@ public final class ResourceManager extends AManager implements IDebuggable {
      * @param request Request that was accepted.
      */
     protected void requestAccepted(ResourcesRequest request) {
-        this.promisedMinerals += request.getMinerals();
-        this.promisedGas += request.getGas();
+        this.promisedMinerals += request.getResources().getMinerals();
+        this.promisedGas += request.getResources().getGas();
     }
 
     /**
@@ -93,7 +100,7 @@ public final class ResourceManager extends AManager implements IDebuggable {
      * @return True if there are enough resources, false otherwise.
      */
     protected boolean hasSufficientResources(ResourcesRequest request) {
-        return getEffectiveMinerals() >= request.getMinerals() && getEffectiveGas() >= request.getGas();
+        return getEffectiveMinerals() >= request.getResources().getMinerals() && getEffectiveGas() >= request.getResources().getGas();
     }
 
     /**
