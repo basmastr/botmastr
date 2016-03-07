@@ -87,7 +87,7 @@ public final class BuildingManager extends AManager implements IResourcesRequest
         if (!queued.isEmpty()) {
             final BuildingQueueItem item = queued.peek();
             final Cost resources = new Cost(item.getBuilding().mineralPrice(), item.getBuilding().gasPrice());
-            final ResourcesRequest request = new ResourcesRequest(resources, item, this);
+            final ResourcesRequest request = new ResourcesRequest(resources, item.getPriority(), item, this);
             request.send();
             item.setState(EBuildingQueueItemStates.AWAITING_RESOURCES_ALLOCATION);
         }

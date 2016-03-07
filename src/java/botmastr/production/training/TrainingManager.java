@@ -91,7 +91,7 @@ public final class TrainingManager extends AManager implements IResourcesRequest
                 items) {
 
             final Cost resourceNeeded = new Cost(item.getTrainee().mineralPrice(), item.getTrainee().gasPrice());
-            final ResourcesRequest request = new ResourcesRequest(resourceNeeded, item, this);
+            final ResourcesRequest request = new ResourcesRequest(resourceNeeded, item.getPriority(), item, this);
             request.send();
             item.advanceState();
         }
