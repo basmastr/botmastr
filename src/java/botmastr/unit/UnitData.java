@@ -10,7 +10,7 @@ import bwapi.Unit;
  * Represents a single BWAPI unit but adds aditional info.
  * @author Tomas Tomek tomas.tomek333@gmail.com
  */
-public class UnitData {
+public class UnitData implements ITeamable {
     /**
      * BWAPI unit tied to this object.
      */

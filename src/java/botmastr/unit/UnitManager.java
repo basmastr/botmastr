@@ -59,7 +59,7 @@ public final class UnitManager extends AManager {
      * Adds a unit to the list.
      * @param unit
      */
-    public void addUnit(Unit unit) {
+    public UnitData addUnit(Unit unit) {
         // TODO: 14.1.2016 copy from loki (what to do on various owners)
         final UnitData unitData = new UnitData(unit);
         this.units.put(unit.getID(), unitData);
@@ -74,6 +74,8 @@ public final class UnitManager extends AManager {
 //        else if (unit.getType().isMineralField()){
 //            BaseManager.getInstance().addMineralPatch(unit);
 //        }
+
+        return unitData;
     }
 
     /**
@@ -194,7 +196,11 @@ public final class UnitManager extends AManager {
 
     public void onUnitComplete(Unit unit) {
         if (isMine(unit)) {
-            UnitManager.getInstance().addUnit(unit);
+            final UnitData unitData = UnitManager.getInstance().addUnit(unit);
+
+            if (!unit.getType().isBuilding() && unit.canAttack() && !unit.getType().isWorker()) {
+                SquadManager.getInstance().getSquad(unit).addMember(unitData);
+            }
         }
     }
 
