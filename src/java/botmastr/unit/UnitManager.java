@@ -205,6 +205,30 @@ public final class UnitManager extends AManager {
     }
 
     /**
+     * Let's {@code UnitManager} react to a unit being destroyed.
+     * @param unit unit that has been destroyed
+     */
+    public void onUnitDestroy(Unit unit) {
+        if (isMine(unit)) {
+            final UnitData unitData = this.getUnitData(unit);
+
+            if (unitData != null) {
+                unitData.destroy();
+                this.units.remove(unit.getID());
+            }
+        }
+    }
+
+    /**
+     * Gets {@code UnitData} object representing this unit if this unit is managed by {@code UnitManager}.
+     * @param unit unit to get
+     * @return {@code UnitData} representing supplied unit, {@code null} otherwise
+     */
+    public UnitData getUnitData(Unit unit) {
+        return this.units.get(unit.getID());
+    }
+
+    /**
      * Goes through all owned units and if it finds some that are not assigned to managers, it will assign them.
      */
     private void checkUnassignedUnits() {

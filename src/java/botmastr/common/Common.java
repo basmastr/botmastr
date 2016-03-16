@@ -90,6 +90,10 @@ public class Common  extends AManager {
         return this.bwapi.getGame().self();
     }
 
+    public boolean checkForUpdateInterval(int updateInterval) {
+        return getGame().getFrameCount() % updateInterval == 0;
+    }
+
     public boolean debug() {
         return this.debug;
     }

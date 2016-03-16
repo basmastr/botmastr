@@ -77,4 +77,11 @@ public class UnitData implements ITeamable {
     public boolean idle() {
         return this.plan.size() == 0;
     }
+
+    /**
+     * Reacts to the information that the {@code Unit} represented by this {@code UnitData} has been destroyed.
+     */
+    public void destroy() {
+        this.plan.stream().forEach(AUnitObjective::unitDestroyed);
+    }
 }

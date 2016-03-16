@@ -5,6 +5,8 @@ import botmastr.production.building.BuildingQueueItem;
 import botmastr.production.building.EBuildingQueueItemStates;
 import botmastr.common.EPriority;
 import botmastr.unit.UnitData;
+import bwapi.Color;
+import bwapi.Position;
 import bwapi.TilePosition;
 import bwapi.UnitType;
 
@@ -16,14 +18,21 @@ public class UnitObjectiveBuild extends AUnitObjective {
     /**
      * Building to be built.
      */
-    private UnitType building;
+    protected UnitType building;
 
     /**
      * Where to build.
      */
-    private TilePosition position;
+    protected TilePosition position;
 
     protected BuildingQueueItem buildingQueueItem;
+
+    protected int failsafeCounter;
+
+    protected static final int FAIL_SAFE_COUNTER_MAX = 100;
+
+    protected Position builderLastPosition;
+
     /**
      *
      * @param unit
@@ -32,6 +41,7 @@ public class UnitObjectiveBuild extends AUnitObjective {
      */
     public UnitObjectiveBuild(UnitData unit, BuildingQueueItem buildingQueueItem, TilePosition position) {
         super(unit);
+        this.builderLastPosition = unit.getUnit().getPosition();
         this.building = buildingQueueItem.getBuilding();
         this.buildingQueueItem = buildingQueueItem;
         this.position = position;
@@ -46,6 +56,7 @@ public class UnitObjectiveBuild extends AUnitObjective {
      */
     public UnitObjectiveBuild(UnitData unit, BuildingQueueItem buildingQueueItem, TilePosition position, EPriority priority) {
         super(priority, unit);
+        this.builderLastPosition = unit.getUnit().getPosition();
         this.building = buildingQueueItem.getBuilding();
         this.buildingQueueItem = buildingQueueItem;
         this.position = position;
@@ -61,8 +72,24 @@ public class UnitObjectiveBuild extends AUnitObjective {
 
 
     public void tic() {
+        Common.getInstance().getGame().drawBoxMap(this.position.toPosition(), new Position(this.position.toPosition().getX()+this.building.width()+32,this.position.toPosition().getY()+this.building.height()+32), Color.Orange);
+
         if (Common.getInstance().getGame().canMake(this.building)) {
-            this.unit.getUnit().build(this.building, this.position);
+            if (this.unit.getUnit().canBuild(this.building, this.position)) {
+                this.unit.getUnit().build(this.building, this.position);
+            }
+            else {
+                if (this.unit.getUnit().getPosition().equals(this.builderLastPosition)) {
+                    this.failsafeCounter++;
+                }
+                else {
+                    this.failsafeCounter = 0;
+                    this.builderLastPosition = this.unit.getUnit().getPosition();
+                }
+                if (this.failsafeCounter == UnitObjectiveBuild.FAIL_SAFE_COUNTER_MAX) {
+                    fail();
+                }
+            }
         }
     }
 
@@ -71,6 +98,12 @@ public class UnitObjectiveBuild extends AUnitObjective {
         super.finish();
         this.buildingQueueItem.setState(EBuildingQueueItemStates.BUILDING);
     }
+
+    public void fail() {
+        this.buildingQueueItem.setState(EBuildingQueueItemStates.AWAITING_WORKER_ALLOCATION);
+        super.finish();
+    }
+
 
     public TilePosition getPosition() {
         return this.position;
@@ -81,7 +114,12 @@ public class UnitObjectiveBuild extends AUnitObjective {
     }
 
     @Override
+    public void unitDestroyed() {
+        fail();
+    }
+
+    @Override
     public String getName() {
-        return "BuildObjective_" + this.getBuilding().toString();
+        return "BuildObjective_" + this.getBuilding().toString() + "_" + this.failsafeCounter;
     }
 }

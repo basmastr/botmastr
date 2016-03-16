@@ -22,6 +22,8 @@ public class SquadObjectiveScout extends ASquadObjective {
 
     @Override
     public void tic(Set<UnitData> members) {
-        members.stream().forEach(m -> m.getUnit().move(this.location));
+        if (members.size() >= 3) {
+            members.stream().forEach(m -> m.getUnit().attack(this.location));
+        }
     }
 }

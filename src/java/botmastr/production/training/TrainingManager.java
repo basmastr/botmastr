@@ -1,5 +1,6 @@
 package botmastr.production.training;
 
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 import botmastr.common.AManager;
@@ -29,10 +30,10 @@ public final class TrainingManager extends AManager implements IResourcesRequest
 
     /**
      * Private because this is a singleton.
-     */
+
+    */
     private TrainingManager() {
     }
-
     public static TrainingManager getInstance() {
         return INSTANCE;
     }
@@ -121,7 +122,20 @@ public final class TrainingManager extends AManager implements IResourcesRequest
      */
     protected Unit getProducer(TrainingQueueItem item) {
         // TODO: 25.2.2016 get closest to item.whereNeeded
-        return Common.getInstance().getPlayer().getUnits().stream().filter(u -> u.canTrain(item.getTrainee())).findFirst().orElse(null);
+        long lol = Common.getInstance().getPlayer().getUnits().stream().filter(u -> u.canTrain(item.getTrainee())).count();
+        long kurva = 1L;
+        return Common.getInstance().getPlayer().getUnits().stream().filter(u -> u.canTrain(item.getTrainee())).min(new Comparator<Unit>() {
+            @Override
+            public int compare(Unit o1, Unit o2) {
+                if (o1.getTrainingQueue().size() >  o2.getTrainingQueue().size()) {
+                    return -1;
+                } else if (o1.getTrainingQueue().size() <  o2.getTrainingQueue().size()){
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        }).orElse(null);
     }
 
     /**

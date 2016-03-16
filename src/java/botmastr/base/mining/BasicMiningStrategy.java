@@ -37,11 +37,14 @@ public class BasicMiningStrategy implements IMiningStrategy {
 
         final int updateInterval = 100;
 
+        boolean workerRepurposed = false;
+
         for (UnitData worker :
                 workers) {
-            if (Common.getInstance().getGame().getFrameCount() % updateInterval == 0) {
+            if (Common.getInstance().getGame().getFrameCount() % updateInterval == 0 && !workerRepurposed) {
                 if (worker.getPlan().size() == 1 && worker.getPlan().peek() instanceof UnitObjectiveMineMinerals) {
                     worker.getPlan().peek().finish();
+                    workerRepurposed = true;
                 }
             }
             if (worker.idle()) {

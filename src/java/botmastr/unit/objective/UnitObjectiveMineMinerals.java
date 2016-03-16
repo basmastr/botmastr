@@ -64,6 +64,11 @@ public class UnitObjectiveMineMinerals extends AUnitObjective {
     }
 
     @Override
+    public void unitDestroyed() {
+        finish();
+    }
+
+    @Override
     public String getName() {
         return "MineMineralsObjective";
     }

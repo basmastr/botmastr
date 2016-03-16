@@ -70,6 +70,10 @@ public class UnitObjectiveMove extends AUnitObjective {
         Common.getInstance().getGame().drawLineMap(this.unit.getUnit().getPosition(), this.position, Color.White);
     }
 
+    @Override
+    public void unitDestroyed() {
+        finish();
+    }
 
     @Override
     public String getName() {

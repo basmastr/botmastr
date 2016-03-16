@@ -112,6 +112,11 @@ public abstract class AUnitObjective implements Comparable<AUnitObjective> {
     public abstract String getName();
 
     /**
+     * Reacts to the {@code Unit} executing this objective being destroyed.
+     */
+    public abstract void unitDestroyed();
+
+    /**
      * Print debugging information for the objective.
      * @param position Where to print.
      */
