@@ -4,10 +4,14 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import botmastr.common.AManager;
+import botmastr.common.EPriority;
+import botmastr.production.training.TrainingManager;
 import botmastr.unit.objective.AUnitObjective;
 import botmastr.base.MyBase;
 import botmastr.unit.objective.UnitObjectiveBuild;
+import botmastr.unit.objective.UnitObjectiveScout;
 import bwapi.*;
+import javafx.geometry.Pos;
 
 /**
  * General unit manager.
@@ -193,14 +197,46 @@ public final class UnitManager extends AManager {
         }
     }
 
+    /**
+     * Reacts to building being completed.
+     * @param unit building that was completed
+     */
+    protected void buildingCompleted(Unit unit) {
+        if (isMine(unit)) {
+            final UnitData unitData = UnitManager.getInstance().addUnit(unit);
 
-    public void onUnitComplete(Unit unit) {
+            if (unit.canTrain()) {
+                TrainingManager.getInstance().loadBalanceQueues();
+            }
+        }
+    }
+
+    /**
+     * Reacts to unit being completed.
+     * @param unit unit that has been completed
+     */
+    protected void unitCompleted(Unit unit) {
         if (isMine(unit)) {
             final UnitData unitData = UnitManager.getInstance().addUnit(unit);
 
             if (!unit.getType().isBuilding() && unit.canAttack() && !unit.getType().isWorker()) {
                 SquadManager.getInstance().getSquad(unit).addMember(unitData);
             }
+        }
+    }
+
+
+
+    /**
+     * Let's {@code UnitManager} react to a unit being completed.
+     * @param unit unit that has been completed
+     */
+    public void onUnitComplete(Unit unit) {
+        if (unit.getType().isBuilding()) {
+            this.buildingCompleted(unit);
+        }
+        else {
+            this.unitCompleted(unit);
         }
     }
 
@@ -244,5 +280,21 @@ public final class UnitManager extends AManager {
 
     public Map<Integer, UnitData> getUnits() {
         return this.units;
+    }
+
+
+    /**
+     * Find a suitable unit and send it to scout supplied position.
+     * @param position position to be scouted
+     * @return {@code UnitData} representing the unit doing the scouting
+     */
+    public UnitData orderScouting(Position position) {
+        final UnitData scout = this.units.values().stream().filter(u -> u.getUnit().canMove() && u.getPlan().size() <= 1).sorted((u1, u2) -> u1.getUnit().getDistance(position) - u2.getUnit().getDistance(position)).findFirst().get();
+
+        if (scout != null) {
+            scout.addObjective(new UnitObjectiveScout(scout, position, EPriority.HIGH));
+        }
+
+        return scout;
     }
 }

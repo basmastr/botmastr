@@ -13,6 +13,7 @@ import botmastr.unit.UnitManager;
 import bwapi.*;
 import bwta.BWTA;
 import bwta.BaseLocation;
+import sun.applet.Main;
 
 import java.util.List;
 
@@ -38,6 +39,7 @@ public final class BasicBotMain extends DefaultBWListener {
         BWTA.readMap();
         BWTA.analyze();
         Common.getInstance().init(this.mirror);
+        MainManager.getInstance().init(this.mirror);
         UnitManager.getInstance().init(this.mirror);
         BaseManager.getInstance().init(this.mirror);
         ResourceManager.getInstance().init(this.mirror);
@@ -54,9 +56,108 @@ public final class BasicBotMain extends DefaultBWListener {
         TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.HIGH, UnitType.Protoss_Probe));
         TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.HIGH, UnitType.Protoss_Probe));
         TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.HIGH, UnitType.Protoss_Probe));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.HIGH, UnitType.Protoss_Probe));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.HIGH, UnitType.Protoss_Probe));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.HIGH, UnitType.Protoss_Probe));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.HIGH, UnitType.Protoss_Probe));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.HIGH, UnitType.Protoss_Probe));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.HIGH, UnitType.Protoss_Probe));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.HIGH, UnitType.Protoss_Probe));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.HIGH, UnitType.Protoss_Probe));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.HIGH, UnitType.Protoss_Probe));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.HIGH, UnitType.Protoss_Probe));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.HIGH, UnitType.Protoss_Probe));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.HIGH, UnitType.Protoss_Probe));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.HIGH, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.HIGH, UnitType.Protoss_Probe));
+//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.HIGH, UnitType.Protoss_Probe));
 //        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.HIGH, UnitType.Protoss_Probe));
 //        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.MEDIUM, UnitType.Protoss_Probe));
-//        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Zealot));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Zealot));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Zealot));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Zealot));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Zealot));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Zealot));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Zealot));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Zealot));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Zealot));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Zealot));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Zealot));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Zealot));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Zealot));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Zealot));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Zealot));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Zealot));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Zealot));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Zealot));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Zealot));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Zealot));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Zealot));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Zealot));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Zealot));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Zealot));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Zealot));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Zealot));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Zealot));
+        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Zealot));
 //        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.LOW, UnitType.Protoss_Zealot));
 //        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.MEDIUM, UnitType.Protoss_Probe));
 //        TrainingManager.getInstance().addQueueItem(new TrainingQueueItem(EPriority.MEDIUM, UnitType.Protoss_Probe));
@@ -71,71 +172,73 @@ public final class BasicBotMain extends DefaultBWListener {
 //        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.HIGH, UnitType.Terran_Refinery));
 //        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.HIGH, UnitType.Terran_Supply_Depot));
 //        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.HIGH, UnitType.Terran_Barracks));
-//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Gateway));
+        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Gateway));
+        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Gateway));
+        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Gateway));
 //        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.MEDIUM, UnitType.Protoss_Assimilator));
-//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.HIGH, UnitType.Protoss_Pylon));
 //        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.MEDIUM, UnitType.Protoss_Pylon));
 //        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.MEDIUM, UnitType.Protoss_Pylon));
-//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Gateway));
-        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Forge));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Forge));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.MEDIUM, UnitType.Protoss_Pylon));
+        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.MEDIUM, UnitType.Protoss_Nexus));
+        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.HIGH, UnitType.Protoss_Pylon));
+        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.HIGH, UnitType.Protoss_Pylon));
         BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.MEDIUM, UnitType.Protoss_Pylon));
-        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
-        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
-        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
-        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
-        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
-        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
-        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
         BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Pylon));
-        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
-        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
-        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
-        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
-        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
-        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
-        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
-        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Pylon));
+
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Pylon));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Pylon));
 //        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.HIGH, UnitType.Protoss_Pylon));
 
-        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
-        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
-        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
-        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
-        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
-        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
-        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
-        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
-        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
+//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
 //        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Photon_Cannon));
 //        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.HIGH, UnitType.Protoss_Pylon));
-//        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.HIGH, UnitType.Protoss_Nexus));
 //        BuildingManager.getInstance().addQueueItem(new BuildingQueueItem(EPriority.LOW, UnitType.Protoss_Pylon));
 
     }
 
     @Override
     public void onFrame() {
-        final long startTime = System.nanoTime();
-        UnitManager.getInstance().tic();
-        BaseManager.getInstance().tic();
-        ResourceManager.getInstance().tic();
-        BuildingManager.getInstance().tic();
-        TrainingManager.getInstance().tic();
-        SquadManager.getInstance().tic();
-        Common.getInstance().tic();
 
-        if (Common.getInstance().time()) {
-            printOnFrameTimer(startTime);
+        try {
+            final long startTime = System.nanoTime();
+            MainManager.getInstance().tic();
+            UnitManager.getInstance().tic();
+            BaseManager.getInstance().tic();
+            ResourceManager.getInstance().tic();
+            BuildingManager.getInstance().tic();
+            TrainingManager.getInstance().tic();
+            SquadManager.getInstance().tic();
+            Common.getInstance().tic();
+
+            if (Common.getInstance().time()) {
+                printOnFrameTimer(startTime);
+            }
         }
-//            Common.getInstance().getGame().drawCircleMap(BWTA.getStartLocations().stream().filter(p -> !p.getTilePosition().equals(this.mirror.getGame().self().getStartLocation())).findFirst().get().getPosition(), 200, Color.Purple);
-
-//        BaseLocation baseLoc = BWTA.getStartLocation(enemy);
-//        Position pos = BWTA.getStartLocation(enemy).getPosition();
-//        List<Player> enemes =  this.mirror.getGame().enemies();
-//        Position enemyPos = enemy.getStartLocation().toPosition();
-//        TilePosition loca = enemy.getStartLocation();
-//        Common.getInstance().getGame().drawCircleMap(enemyPos, 200, Color.Purple);
-
+       catch (Exception e) {
+           e.printStackTrace();
+       }
     }
 
     @Override

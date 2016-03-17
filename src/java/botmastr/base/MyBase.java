@@ -75,10 +75,7 @@ public class MyBase extends ABase {
      */
     public void debug() {
         if (Common.getInstance().debug()) {
-            // TODO: 15.2.2016 put this.main.getUnit().getX(), this.main.getUnit().getY() into UnitData?
-            //resources treshhold
             Common.getInstance().getGame().drawCircleMap(this.main.getUnit().getX(), this.main.getUnit().getY(), RESOURCES_THRESHOLD, Color.Purple);
-            //resources
             Common.getInstance().getGame().drawTextMap(this.main.getUnit().getX(), this.main.getUnit().getY(), Integer.toString(this.mineralPatches.size()));
             Common.getInstance().getGame().drawTextMap(this.main.getUnit().getX(), this.main.getUnit().getY()+15, Integer.toString(this.geysers.size()));
             Common.getInstance().getGame().drawTextMap(this.main.getUnit().getX(), this.main.getUnit().getY()+30, Integer.toString(this.workers.size()));

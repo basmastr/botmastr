@@ -1,8 +1,5 @@
 package botmastr.production.training;
 
-import java.util.Comparator;
-import java.util.stream.Collectors;
-
 import botmastr.common.AManager;
 import botmastr.common.Common;
 import botmastr.common.Cost;
@@ -11,6 +8,11 @@ import botmastr.production.resources.IResourcesRequestor;
 import botmastr.production.resources.ResourceManager;
 import botmastr.production.resources.ResourcesRequest;
 import bwapi.Unit;
+import bwapi.UnitType;
+
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Takes care of keeping a list of units to train and actually training them.
@@ -59,6 +61,7 @@ public final class TrainingManager extends AManager implements IResourcesRequest
         handleAwaitingProducerItems();
         handleHasProducerItems();
         handleAwaitingTrainingItems();
+        loadBalanceQueues();
     }
 
 
@@ -114,28 +117,74 @@ public final class TrainingManager extends AManager implements IResourcesRequest
         // TODO: 25.2.2016 make producer UnitData and TrainingItem an observer of producer and make producer notify the item when it finished training
     }
 
+    /**
+     * Redistribute queued units between all buildings evenly to make training more effective.
+     */
+    public void loadBalanceQueues() {
+        //get a set of all types of buildings (unique) which have more than one queued item and therefor might need balancing
+        final Collection<UnitType> mightNeedBalancing = Common.getInstance().getPlayer().getUnits().stream()
+                .filter(u -> u.getTrainingQueue().size() > 1)
+                .map(u -> u.getType())
+                .collect(Collectors.toSet());
 
+        for (UnitType type :
+                mightNeedBalancing) {
+
+            //buildings capable of training units of type type
+            final List<Unit> buildings = Common.getInstance().getPlayer().getUnits().stream()
+                    .filter(u -> u.isCompleted() && u.getType().equals(type))
+                    .collect(Collectors.toList());
+
+            if (buildings.size() > 1) {
+                //get all but first item in the queues of all buildings into globalQueue and cancel them
+                final List<UnitType> globalQueue = new ArrayList<>();
+                for (Unit b :
+                        buildings) {
+                    final List<UnitType> trainingQueue = b.getTrainingQueue();
+                    if (trainingQueue.size() > 1) {
+                        trainingQueue.stream().skip(1).forEach(item -> { globalQueue.add(item); b.cancelTrain(); });
+                    }
+                }
+
+                //sort production buildings by training queue so the ones with 0 trainees come first
+                buildings.sort(new Comparator<Unit>() {
+                    @Override
+                    public int compare(Unit o1, Unit o2) {
+                        return o1.getTrainingQueue().size() - o2.getTrainingQueue().size();
+                    }
+                });
+
+                //redistribute canceled training items
+                ListIterator<Unit> buildingIterator = buildings.listIterator();
+                for (UnitType u :
+                        globalQueue) {
+
+                    if (!buildingIterator.hasNext()) {
+                        buildingIterator = buildings.listIterator();
+                    }
+
+                    buildingIterator.next().train(u);
+                }
+            }
+        }
+    }
 
     /**
      * Finds a suitable producer for training item.
-     * @return Chosen producer or null if no producer was found.
+     * @param item unit to be trained
+     * @return Chosen producer or {@code null} if no producer was found.
      */
     protected Unit getProducer(TrainingQueueItem item) {
         // TODO: 25.2.2016 get closest to item.whereNeeded
-        long lol = Common.getInstance().getPlayer().getUnits().stream().filter(u -> u.canTrain(item.getTrainee())).count();
-        long kurva = 1L;
-        return Common.getInstance().getPlayer().getUnits().stream().filter(u -> u.canTrain(item.getTrainee())).min(new Comparator<Unit>() {
-            @Override
-            public int compare(Unit o1, Unit o2) {
-                if (o1.getTrainingQueue().size() >  o2.getTrainingQueue().size()) {
-                    return -1;
-                } else if (o1.getTrainingQueue().size() <  o2.getTrainingQueue().size()){
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        }).orElse(null);
+        return Common.getInstance().getPlayer().getUnits().stream()
+                .filter(u -> u.canTrain(item.getTrainee()))
+                .min(new Comparator<Unit>() {
+                    @Override
+                    public int compare(Unit o1, Unit o2) {
+                        return o1.getTrainingQueue().size() - o2.getTrainingQueue().size();
+                    }
+                })
+                .orElse(null);
     }
 
     /**

@@ -2,6 +2,7 @@ package botmastr.unit;
 
 import java.util.PriorityQueue;
 
+import botmastr.common.Common;
 import botmastr.unit.objective.AUnitObjective;
 import bwapi.Position;
 import bwapi.Unit;
@@ -67,6 +68,10 @@ public class UnitData implements ITeamable {
         for (AUnitObjective o: this.plan) {
             o.debug(new Position(this.unit.getX(), y));
             y += 10;
+        }
+
+        if (this.unit.canTrain()) {
+            Common.getInstance().getGame().drawTextMap(this.getUnit().getPosition().getX(), y, Integer.toString(this.unit.getTrainingQueue().size()));
         }
     }
 

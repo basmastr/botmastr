@@ -1,21 +1,13 @@
 package botmastr.unit;
 
-import botmastr.base.MyBase;
 import botmastr.common.AManager;
-import botmastr.unit.objective.AUnitObjective;
-import botmastr.unit.objective.SquadObjectiveScout;
-import botmastr.unit.objective.UnitObjectiveBuild;
+import botmastr.unit.objective.UnitObjectiveScout;
 import bwapi.Mirror;
-import bwapi.Position;
 import bwapi.Unit;
-import bwapi.UnitType;
 import bwta.BWTA;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * Manages the actions of squads.
@@ -50,17 +42,17 @@ public final class SquadManager extends AManager {
     @Override
     public void tic() {
 
-        for (Squad squad :
-                this.squads) {
-            if (!squad.hasObjective()) {
-//                bwapi.getGame().isExplored();
-                squad.setObjective(new SquadObjectiveScout(BWTA.getStartLocations().stream().filter(p -> !p.getTilePosition().equals(this.bwapi.getGame().self().getStartLocation())).findFirst().get().getPosition()));
-                        //not working
-//                        bwapi.getGame().enemy().getStartLocation().toPosition())
-            }
-
-            squad.tic();
-        }
+//        for (Squad squad :
+//                this.squads) {
+//            if (!squad.hasObjective()) {
+////                bwapi.getGame().isExplored();
+//                squad.setObjective(new UnitObjectiveScout(BWTA.getStartLocations().stream().filter(p -> !p.getTilePosition().equals(this.bwapi.getGame().self().getStartLocation())).findFirst().get().getPosition()));
+//                        //not working
+////                        bwapi.getGame().enemy().getStartLocation().toPosition())
+//            }
+//
+//            squad.tic();
+//        }
     }
 
     /**

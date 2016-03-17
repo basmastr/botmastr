@@ -1,8 +1,5 @@
 package botmastr.production.building;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import botmastr.common.*;
 import botmastr.production.resources.IResourcesRequestor;
 import botmastr.production.resources.ResourceManager;
@@ -15,9 +12,15 @@ import bwapi.Position;
 import bwapi.TilePosition;
 import bwapi.Unit;
 import bwapi.UnitType;
+import bwta.BWTA;
+import bwta.BaseLocation;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Takes care of keeping a list of buildings to build and actually building them.
+ *
  * @author Tomas Tomek tomas.tomek333@gmail.com
  */
 public final class BuildingManager extends AManager implements IResourcesRequestor {
@@ -49,6 +52,7 @@ public final class BuildingManager extends AManager implements IResourcesRequest
 
     /**
      * Request for recources has been accepted by the resource manager
+     *
      * @param request Request that has been accepted.
      */
     @Override
@@ -71,7 +75,7 @@ public final class BuildingManager extends AManager implements IResourcesRequest
 //        builder.addObjective(new UnitObjectiveBuild(builder, item, position, EPriority.HIGH));
 //            this.queue.remove(item);
         // TODO: 22.2.2016 very temporary, need to ensure completing of the queueItem
-   }
+    }
 
     @Override
     public void requestDenied(ResourcesRequest request) {
@@ -124,7 +128,6 @@ public final class BuildingManager extends AManager implements IResourcesRequest
     }
 
     /**
-     *
      * @return
      */
     protected UnitData getBuilder(TilePosition where) {
@@ -137,7 +140,6 @@ public final class BuildingManager extends AManager implements IResourcesRequest
     }
 
     /**
-     *
      * @param state
      * @return
      */
@@ -146,12 +148,41 @@ public final class BuildingManager extends AManager implements IResourcesRequest
     }
 
     /**
+     * Finds the mot suitable position for building a main building (Command Center/Nexus/Hatchery).
+     *
+     * @return tile position suitable for building of an expansion
+     */
+    protected TilePosition getExpandPosition(Unit builder, UnitType building) {
+        final BaseLocation myStartBase = BWTA.getNearestBaseLocation(Common.getInstance().getPlayer().getStartLocation());
+        //get baseLocations
+        // TODO: 16.3.2016 check if stream gurantees order or not
+        return BWTA.getBaseLocations().stream()
+                .filter(b -> b.getGroundDistance(myStartBase) > 0)
+                .sorted((a, b) -> (int) (a.getGroundDistance(myStartBase) - b.getGroundDistance(myStartBase)))
+                .filter(b -> bwapi.getGame().canBuildHere(b.getTilePosition(), building, builder, false))
+                .findFirst()
+                .get()
+                .getTilePosition();
+        //sort by distance
+        //find first that is valid for building
+//        baseLocations.stream().filter(b -> builder.canBuild(building, b.getTilePosition(), false)).findFirst();
+//
+//        baseLocations = baseLocations.stream().filter(b -> b.getGroundDistance(homeBaseLoc) >= 0).collect(Collectors.toList());
+//        Collections.sort(baseLocations, new Comparator<BaseLocation>() {
+//            public int compare(BaseLocation a, BaseLocation b) {
+//                return (int) (a.getGroundDistance(homeBaseLoc) - b.getGroundDistance(homeBaseLoc));
+//            }
+//        });
+    }
+
+    /**
      * Finds a suitable position for a building.
-     * @param builder Unit building this building
-     * @param building What type of building we need a placement for.
+     *
+     * @param builder    Unit building this building
+     * @param building   What type of building we need a placement for.
      * @param aroundTile What type of building we need a placement for.
      * @return
-     * @author inspired by Plankton's Loki bot
+     * @author Tomas Tomek, inspired by Plankton's Loki bot
      */
     protected TilePosition getPlacement(Unit builder, UnitType building, TilePosition aroundTile) {
         TilePosition buildTile = null;
@@ -169,6 +200,10 @@ public final class BuildingManager extends AManager implements IResourcesRequest
             }
         }
 
+        if (building.isResourceDepot()) {
+            buildTile = this.getExpandPosition(builder, building);
+        }
+
         while ((maxDist < stopDist) && (buildTile == null)) {
             for (int i = aroundTile.getX() - maxDist; i <= aroundTile.getX() + maxDist; i++) {
                 for (int j = aroundTile.getY() - maxDist; j <= aroundTile.getY() + maxDist; j++) {
@@ -176,7 +211,7 @@ public final class BuildingManager extends AManager implements IResourcesRequest
 
                     if (bwapi.getGame().canBuildHere(potentialBuildTile, building, builder, false)) {
                         // are units that are blocking the tile? canBuildHere check doesn't work always
-                        final Position bottomRight =  new Position(potentialBuildTile.toPosition().getX() + building.width() + 32, potentialBuildTile.toPosition().getY() + building.height() + 32);
+                        final Position bottomRight = new Position(potentialBuildTile.toPosition().getX() + building.width() + 32, potentialBuildTile.toPosition().getY() + building.height() + 32);
                         final List<Unit> units = bwapi.getGame().getUnitsInRectangle(potentialBuildTile.toPosition(), bottomRight);
                         if (units.isEmpty() || (units.size() == 1 && units.get(0).getID() == builder.getID())) {
                             buildTile = potentialBuildTile;
