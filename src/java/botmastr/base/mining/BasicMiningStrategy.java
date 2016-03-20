@@ -52,7 +52,7 @@ public class BasicMiningStrategy implements IMiningStrategy {
                     for (Unit gas :
                             refineries) {
                         if (minerCountOnTarget(workers, gas) < MAX_WORKERS_PER_GAS) {
-                            worker.addObjective(new UnitObjectiveMineGas(worker, gas, EPriority.MEDIUM));
+                            worker.addObjective(new UnitObjectiveMineGas(worker, gas, EPriority.LOWEST));
                             currentGasMiners++;
                             break;
                         }
@@ -63,7 +63,7 @@ public class BasicMiningStrategy implements IMiningStrategy {
                     for (Unit mineralPatch :
                             minerals) {
                         if (minerCountOnTarget(workers, mineralPatch) < MAX_WORKERS_PER_MINERAL) {
-                            worker.addObjective(new UnitObjectiveMineMinerals(worker, mineralPatch, EPriority.MEDIUM));
+                            worker.addObjective(new UnitObjectiveMineMinerals(worker, mineralPatch, EPriority.LOWEST));
                             break;
                         }
                     }

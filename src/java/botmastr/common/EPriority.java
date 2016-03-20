@@ -7,5 +7,6 @@ package botmastr.common;
 public enum EPriority {
     HIGH,
     MEDIUM,
-    LOW;
+    LOW,
+    LOWEST;
 }

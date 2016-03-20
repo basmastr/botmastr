@@ -121,8 +121,8 @@ public final class BuildingManager extends AManager implements IResourcesRequest
                 return;
             }
 
-            builder.addObjective(new UnitObjectiveMove(builder, position.toPosition(), EPriority.HIGH));
-            builder.addObjective(new UnitObjectiveBuild(builder, item, position, EPriority.HIGH));
+            builder.addObjective(new UnitObjectiveMove(builder, position.toPosition(), item.getPriority()));
+            builder.addObjective(new UnitObjectiveBuild(builder, item, position, item.getPriority()));
             item.setState(EBuildingQueueItemStates.WORKER_EN_ROUTE);
         }
     }

@@ -22,14 +22,12 @@ public class Common  extends AManager {
     private static final Common INSTANCE = new Common();
 
     /**
-     * TODO put into Common?
      * Contains all UnitTypes that are mineral fields.
      */
     public static List<UnitType> TYPES_MINERALS;
     public static List<UnitType> TYPES_REFINERIES;
 
     /**
-     * TODO put into Common?
      * Contains all UnitTypes that are workers.
      */
     public static List<UnitType> TYPES_WORKERS;
