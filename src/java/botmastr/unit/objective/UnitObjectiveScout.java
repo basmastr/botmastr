@@ -46,7 +46,6 @@ public class UnitObjectiveScout extends AUnitObjective {
      */
     @Override
     public void execute() {
-        start();
     }
 
 
@@ -61,7 +60,9 @@ public class UnitObjectiveScout extends AUnitObjective {
             unit.stop();
             finish();
         }
-        debug();
+        if (Common.getInstance().debug()) {
+            debug();
+        }
     }
 
 

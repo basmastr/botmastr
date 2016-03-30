@@ -29,16 +29,6 @@ public final class UnitManager extends AManager {
     private Map<Integer, UnitData> units = new HashMap<>();
 
     /**
-     * List of all currently active objectives.
-     */
-    private List<AUnitObjective> activeObjectives = new ArrayList<>();
-
-    /**
-     * List of objectives that are finished but are still considered active.
-     */
-    private List<AUnitObjective> finishedActiveObjectives = new ArrayList<>();
-
-    /**
      * Private constructor cos this is a singleton.
      */
     private UnitManager() {
@@ -80,33 +70,6 @@ public final class UnitManager extends AManager {
 //        }
 
         return unitData;
-    }
-
-    /**
-     * Adds an objective to currently active objectives.
-     * @param objective Objective to be added.
-     */
-    public void addActiveObjective(AUnitObjective objective) {
-        this.activeObjectives.add(objective);
-    }
-
-
-    /**
-     * Adds an objective to the list of finished objectives that are to be deleted.
-     * @param objective Objective to be added.
-     */
-    public void addFinishedObjective(AUnitObjective objective) {
-        this.finishedActiveObjectives.add(objective);
-    }
-
-    /**
-     * Runs all active unit objectives.
-     */
-    public void objectivesTic() {
-        this.finishedActiveObjectives.forEach(AUnitObjective::delete);
-        this.activeObjectives.removeAll(this.finishedActiveObjectives);
-        this.finishedActiveObjectives.clear();
-        this.activeObjectives.forEach(AUnitObjective::tic);
     }
 
     /**
@@ -156,15 +119,6 @@ public final class UnitManager extends AManager {
         return unit.getPlayer().equals(this.bwapi.getGame().self());
     }
 
-//    /**
-//     * Gets the list of owned military units.
-//     * @return List of owned military units.
-//     */
-//    public List<UnitData> getMilitaryUnits() {
-//        // TODO: 3.1.2016
-//        return this.units;
-//    }
-
     /**
      * Checks if supplied unit is command center, nexus or hatchery.
      * @param unit Unit to check.
@@ -176,7 +130,7 @@ public final class UnitManager extends AManager {
 
     @Override
     public void tic()  {
-        objectivesTic();
+        this.units.values().forEach(UnitData::tic);
 //        checkUnassignedUnits();
     }
 
@@ -186,7 +140,9 @@ public final class UnitManager extends AManager {
      */
     public void onUnitCreate(Unit unit) {
         if (unit.getType().isBuilding() && isMine(unit)) {
-            final List<UnitObjectiveBuild> buildObjectives = this.activeObjectives.stream()
+            //todo this is stupid
+            final List<UnitObjectiveBuild> buildObjectives = this.units.values().stream()
+                    .map(u -> u.plan.peek())
                     .filter(UnitObjectiveBuild.class::isInstance)
                     .map(UnitObjectiveBuild.class::cast)
                     .filter(o -> o.getPosition().equals(unit.getTilePosition()) && o.getBuilding().equals(unit.getType()))

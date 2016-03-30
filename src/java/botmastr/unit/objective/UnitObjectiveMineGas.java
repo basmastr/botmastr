@@ -36,7 +36,6 @@ public class UnitObjectiveMineGas extends AUnitObjective {
      */
     @Override
     public void execute() {
-        start();
         unit.getUnit().gather(this.refinery);
     }
 
@@ -57,7 +56,10 @@ public class UnitObjectiveMineGas extends AUnitObjective {
 //        if (!unit.getTarget().equals(this.refinery)) {
 //            unit.gather(this.refinery);
 //        }
-        debug();
+
+        if (Common.getInstance().debug()) {
+            debug();
+        }
     }
 
     @Override
@@ -71,7 +73,7 @@ public class UnitObjectiveMineGas extends AUnitObjective {
     }
 
 
-    public void debug() {
+    private void debug() {
         Common.getInstance().getGame().drawLineMap(this.unit.getUnit().getPosition(), this.refinery.getPosition(), Color.White);
     }
 }

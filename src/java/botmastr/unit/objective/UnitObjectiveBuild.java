@@ -62,18 +62,12 @@ public class UnitObjectiveBuild extends AUnitObjective {
         this.position = position;
     }
 
-    /**
-     * Execute the behaviour needed for completion of this objective.
-     */
     @Override
     public void execute() {
-        start();
+
     }
 
-
     public void tic() {
-        Common.getInstance().getGame().drawBoxMap(this.position.toPosition(), new Position(this.position.toPosition().getX()+this.building.width()+32,this.position.toPosition().getY()+this.building.height()+32), Color.Orange);
-
         if (Common.getInstance().getGame().canMake(this.building)) {
             if (this.unit.getUnit().canBuild(this.building, this.position)) {
                 this.unit.getUnit().build(this.building, this.position);
@@ -91,6 +85,15 @@ public class UnitObjectiveBuild extends AUnitObjective {
                 }
             }
         }
+
+        if (Common.getInstance().debug()) {
+            debug();
+        }
+    }
+
+    private void debug() {
+        //draw the square where the building should be
+        Common.getInstance().getGame().drawBoxMap(this.position.toPosition(), new Position(this.position.toPosition().getX()+this.building.width()+32,this.position.toPosition().getY()+this.building.height()+32), Color.Orange);
     }
 
     @Override

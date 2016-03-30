@@ -5,7 +5,9 @@ import java.util.PriorityQueue;
 import botmastr.common.Common;
 import botmastr.unit.objective.AUnitObjective;
 import bwapi.Position;
+import bwapi.TilePosition;
 import bwapi.Unit;
+import bwapi.WalkPosition;
 
 /**
  * Represents a single BWAPI unit but adds aditional info.
@@ -22,6 +24,8 @@ public class UnitData implements ITeamable {
      */
     protected PriorityQueue<AUnitObjective> plan = new PriorityQueue<>();
 
+
+
     public UnitData(Unit unit) {
         this.unit = unit;
     }
@@ -32,6 +36,19 @@ public class UnitData implements ITeamable {
 
     public PriorityQueue<AUnitObjective> getPlan() {
         return this.plan;
+    }
+
+
+    public void tic () {
+        final AUnitObjective activeObjective = this.plan.peek();
+
+        if (activeObjective != null) {
+            activeObjective.tic();
+        }
+        else {
+
+        }
+//        if no objective, then compute move
     }
 
     /**

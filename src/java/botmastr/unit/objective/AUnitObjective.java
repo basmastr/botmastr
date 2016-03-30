@@ -22,11 +22,6 @@ public abstract class AUnitObjective implements Comparable<AUnitObjective> {
     protected UnitData unit;
 
     /**
-     * True if the objective is finished and is waiting to be deleted, False if it's still active.
-     */
-    protected Boolean finished = false;
-
-    /**
      *
      * @param unit
      */
@@ -41,39 +36,20 @@ public abstract class AUnitObjective implements Comparable<AUnitObjective> {
     }
 
     /**
-     *
+     * Behaviour executed once before the first execution of {@code tic()}.
      */
     public abstract void execute();
 
     /**
-     * Periodically ran by UnitManager to execute necessary checks and actions.
+     * Behaviour ran each frame to execute necessary checks and actions of this objective.
      */
     public abstract void tic();
-
-    /**
-     * Starts the objective by adding it to the list of currently active objectives.
-     */
-    public void start() {
-        UnitManager.getInstance().addActiveObjective(this);
-    }
 
     /**
      * Finalizes the objective by removing it from the list of currently active objectives.
      */
     public void finish() {
-        this.finished = true;
-        UnitManager.getInstance().addFinishedObjective(this);
-    }
-
-    /**
-     * Does the final cleanup after the objective before it is deleted.
-     * Do not call this method in tic or execute methods!
-     */
-    public void delete()  {
-        if (this.finished) {
-            // TODO: 19.2.2016 solve exception throwing  ObjectiveNotFinishedProperlyException
-            this.unit.objectiveFinished(this);
-        }
+        this.unit.objectiveFinished(this);
     }
 
     @Override
@@ -87,22 +63,6 @@ public abstract class AUnitObjective implements Comparable<AUnitObjective> {
 
     public EPriority getPriority() {
         return this.priority;
-    }
-
-    /**
-     * Checks if the objective is already finished.
-     * @return True if objective is finished, False otherwise.
-     */
-    public Boolean isFinished() {
-        return this.finished;
-    }
-
-    /**
-     * Checks if the objective is still active.
-     * @return False if objective is finished, True otherwise.
-     */
-    public Boolean isActive() {
-        return !this.finished;
     }
 
     /**

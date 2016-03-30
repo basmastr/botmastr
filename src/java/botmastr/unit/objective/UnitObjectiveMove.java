@@ -45,7 +45,6 @@ public class UnitObjectiveMove extends AUnitObjective {
      */
     @Override
     public void execute() {
-        start();
     }
 
 
@@ -60,11 +59,13 @@ public class UnitObjectiveMove extends AUnitObjective {
             unit.stop();
             finish();
         }
-        debug();
+
+        if (Common.getInstance().debug()) {
+            debug();
+        }
     }
 
-
-    public void debug() {
+    private void debug() {
 //        Common.getInstance().getGame().drawCircleMap(this.position, 10, Color.Blue);
 //        Common.getInstance().getGame().drawBoxMap(this.position, new Position(this.position.getX()+32, this.position.getY()+32), Color.Blue);
         Common.getInstance().getGame().drawLineMap(this.unit.getUnit().getPosition(), this.position, Color.White);

@@ -36,7 +36,6 @@ public class UnitObjectiveMineMinerals extends AUnitObjective {
      */
     @Override
     public void execute() {
-        start();
         unit.getUnit().gather(this.mineral);
     }
 
@@ -53,14 +52,9 @@ public class UnitObjectiveMineMinerals extends AUnitObjective {
     }
 
     public void tic() {
-//        final int updateInterval = 60;
-//        if (Common.getInstance().getGame().getFrameCount() % updateInterval == 0) {
-//            final Unit unit = this.unit.getUnit();
-//            if (!unit.getTarget().equals(this.mineral)) {
-//                unit.gather(this.mineral);
-//            }
-//        }
-        debug();
+        if (Common.getInstance().debug()) {
+            debug();
+        }
     }
 
     @Override
@@ -74,7 +68,7 @@ public class UnitObjectiveMineMinerals extends AUnitObjective {
     }
 
 
-    public void debug() {
+    private void debug() {
         Common.getInstance().getGame().drawLineMap(this.unit.getUnit().getPosition(), this.mineral.getPosition(), Color.White);
     }
 }
