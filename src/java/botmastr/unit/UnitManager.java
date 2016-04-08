@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import botmastr.common.AManager;
+import botmastr.common.Common;
 import botmastr.common.EPriority;
 import botmastr.production.training.TrainingManager;
 import botmastr.unit.objective.AUnitObjective;
@@ -153,6 +154,12 @@ public final class UnitManager extends AManager {
         }
     }
 
+
+
+    public boolean isUnitHostile(Unit unit) {
+        return !unit.getPlayer().equals(Common.getInstance().getPlayer());
+    }
+
     /**
      * Reacts to building being completed.
      * @param unit building that was completed
@@ -236,6 +243,15 @@ public final class UnitManager extends AManager {
 
     public Map<Integer, UnitData> getUnits() {
         return this.units;
+    }
+
+    /**
+     * Gets {@code UnitData} object representing the unit with supplied id.
+     * @param id id of the unit to get
+     * @return {@code UnitData} representing the unit with {@code id}.
+     */
+    public UnitData getUnitById(int id) {
+        return this.units.get(id);
     }
 
 

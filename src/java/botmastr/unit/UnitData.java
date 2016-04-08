@@ -1,8 +1,12 @@
 package botmastr.unit;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.PriorityQueue;
 
 import botmastr.common.Common;
+import botmastr.navigation.NavigationManager;
 import botmastr.unit.objective.AUnitObjective;
 import bwapi.Position;
 import bwapi.TilePosition;
@@ -15,6 +19,13 @@ import bwapi.WalkPosition;
  */
 public class UnitData implements ITeamable {
     /**
+     * Must be larger than 0.
+     */
+    public static final int TRAIL_MAX_LENGTH = 20;
+    public static final int MIN_FRAMES_BETWEEN_COMMANDS = 2;
+
+
+    /**
      * BWAPI unit tied to this object.
      */
     protected Unit unit;
@@ -25,6 +36,10 @@ public class UnitData implements ITeamable {
     protected PriorityQueue<AUnitObjective> plan = new PriorityQueue<>();
 
 
+    /**
+     * Last positions of the unit.
+     */
+    protected ArrayDeque<WalkPosition> trail = new ArrayDeque<>();
 
     public UnitData(Unit unit) {
         this.unit = unit;
@@ -46,9 +61,40 @@ public class UnitData implements ITeamable {
             activeObjective.tic();
         }
         else {
-
+            //if no objective, then compute move
+            if (!this.unit.getType().isWorker() && !onCommandCooldown()) {
+                //use abilities? (and return)
+                //attack if possible (and return)
+                if (!CombatManager.getInstance().attack(this)) {
+                    //move (and return)
+                    NavigationManager.getInstance().computeMove(this);
+                }
+            }
         }
-//        if no objective, then compute move
+    }
+
+
+    protected boolean onCommandCooldown() {
+        return (Common.getInstance().getGame().getFrameCount() - this.getUnit().getLastCommandFrame()) < MIN_FRAMES_BETWEEN_COMMANDS;
+    }
+
+    /**
+     * Adds a position into units trail.
+     * @param position
+     */
+    public void addTrailPosition(WalkPosition position) {
+        if (!this.trail.isEmpty()) {
+            if (this.trail.getLast().equals(position))
+                this.trail.add(position);
+        }
+
+        if (this.trail.size() > TRAIL_MAX_LENGTH) {
+            this.trail.removeFirst();
+        }
+    }
+
+    public ArrayDeque<WalkPosition> getTrail() {
+        return this.trail;
     }
 
     /**
@@ -105,5 +151,10 @@ public class UnitData implements ITeamable {
      */
     public void destroy() {
         this.plan.stream().forEach(AUnitObjective::unitDestroyed);
+    }
+
+    @Override
+    public String toString() {
+        return this.unit.getType().toString() + "-" + this.unit.getID();
     }
 }
